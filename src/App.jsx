@@ -66,7 +66,11 @@ function App() {
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-16'>
             <div className='flex items-center gap-4'>
-              <span className='text-xl font-bold text-blue-600'>Dr. Aqua</span>
+              <img
+                src='/images/logo.png'
+                alt='Dr. Aqua Logo'
+                className='h-12 w-auto'
+              />
               <span className='text-gray-400'>|</span>
               <h1 className='text-lg font-semibold text-gray-900'>
                 Business Management
