@@ -52,12 +52,12 @@
 | **Phase 2: Analytics** | **3** | Executive Sales Analytics Dashboard | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
 | | **4** | Top Segmented Notifications Popover Center | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
 | | **5** | Bahawalpur Water Quality & TDS Intelligence Map | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
-| **Phase 3: Inventory** | **6** | Omnichannel Inventory Base View (85%+ Height Viewport) | ✅ Complete | ✅ Ready | ⏳ Next Up | Scheduled |
-| | **7** | `+ Add / Edit Product` Slide-Over Drawer | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
-| | **8** | `Quick Restock (+10 / -5)` Stepper Modal | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
-| | **9** | Barcode & Thermal Shelf Label Print Modal | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
-| | **10** | Stock Movement & Audit Trail Log Drawer | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
-| **Phase 4: CRM** | **11** | Customer CRM & Radar Base Table (Urgency Tabs) | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
+| **Phase 3: Inventory** | **6** | Omnichannel Inventory Base View (85%+ Height Viewport) | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| | **7** | `+ Add / Edit Product` Slide-Over Drawer | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| | **8** | `Quick Restock (+10 / -5)` Stepper Modal | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| | **9** | Barcode & Thermal Shelf Label Print Modal | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| | **10** | Stock Movement & Audit Trail Log Drawer | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| **Phase 4: CRM** | **11** | Customer CRM & Radar Base Table (Urgency Tabs) | ✅ Complete | ✅ Ready | ⏳ Next Up | Scheduled |
 | | **12** | Customer 360° Detail & Service History Drawer | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
 | | **13** | Bulk WhatsApp Service Reminder Broadcast Center | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
 | | **14** | `+ Add New Customer & Register Radar` Modal | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
@@ -95,6 +95,8 @@
 - [x] `avatar.jsx` — User initials and profile circles (`Avatar`, `AvatarImage`, `AvatarFallback`)
 - [x] `popover.jsx` — Clean anchor popover container with outside click listener (`Popover`, `PopoverTrigger`, `PopoverContent`)
 - [x] `skeleton.jsx` — Animated pulse skeleton loading placeholder
+- [x] `select.jsx` — Styled enterprise dropdown selector with custom indicator
+- [x] `dropdown-menu.jsx` — Contextual popup menu with item states and dividers (`DropdownMenu`, `DropdownMenuItem`)
 
 ### Phase 1: Authentication Suite (`src/components/auth/`)
 - [x] `AuthPortal.jsx` — Centered, minimalist card layout with ambient water-mesh glow, official `DrAquaLogo`, and clean view switching (Sign In & Forgot Password)
@@ -106,6 +108,13 @@
 - [x] `SalesDashboard.jsx` — [Screen 3] 4 Metric KPI summary cards with directional percentage trend chips, multi-period Chart.js revenue & service audit performance visualizer, omnichannel velocity breakdown
 - [x] `NotificationsPopover.jsx` — [Screen 4] Top segmented alert center under the bell icon with `Low Stock`, `Radar Due`, `Transit Delays`, and 1-click WhatsApp/Dispatch CTAs
 - [x] `WaterPurityTDSMap.jsx` — [Screen 5] Interactive Bahawalpur municipal groundwater hardness sector matrix (Model Town, Satellite Town, Industrial Estate, etc.) with detailed equipment prescription inspector
+
+### Phase 3: Omnichannel Inventory Suite (`src/components/inventory/` & `src/components/InventoryManager.jsx`)
+- [x] `InventoryManager.jsx` — [Screen 6] Fixed 85vh viewport data-grid with SKU search, category filters, stock level indicator badges, Vercel Live sync pill, and pagination
+- [x] `AddProductDrawer.jsx` — [Screen 7] Slide-over specification drawer with auto-SKU generator, real-time margin calculation, and Vercel storefront publish toggle
+- [x] `QuickRestockModal.jsx` — [Screen 8] Rapid stock delta stepper modal (`+10`, `+50`, `-5`) with supplier reason codes and PO reference tracking
+- [x] `BarcodeLabelModal.jsx` — [Screen 9] Realistic 50mm x 30mm thermal shelf sticker preview with vector barcode, EAN-13, QR tag, and copies stepper
+- [x] `StockAuditDrawer.jsx` — [Screen 10] Chronological movement ledger drawer with delta chips, operator audit tags, and PO/Invoice references
 
 ### Central Mock Registry (`src/data/mock/`)
 - [x] `sectors.js` — Bahawalpur city sectors, TDS readings, water hardness index, filter life forecasts
