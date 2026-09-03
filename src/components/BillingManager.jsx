@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import jsPDF from 'jspdf'
+import { jsPDF } from 'jspdf'
 
 export default function BillingManager({
   inventory,

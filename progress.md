@@ -3,7 +3,7 @@
 > **Architecture Status**: Foundation & Design System Initialization [COMPLETED ✅]  
 > **Master Design System**: Medical/Water-Tech Enterprise SaaS (Enhanced beyond Stitch)  
 > **Target**: 26 Screens across 8 Core Modules  
-> **Tech Stack**: React 18, Tailwind CSS, shadcn/ui primitives (`cva`, `clsx`, `twMerge`), `lucide-react`, Chart.js, jsPDF, Local/Cloud-ready state
+> **Tech Stack**: React 19.2.x, Tailwind CSS, shadcn/ui primitives (`cva`, `clsx`, `twMerge`), `lucide-react`, Chart.js 4.5.x, jsPDF 4.2.x, Local/Cloud-ready state
 
 ---
 
