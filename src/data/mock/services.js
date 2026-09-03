@@ -1,0 +1,58 @@
+// Field Technician Dispatch & Service Work Order Tickets Registry
+export const mockServiceTickets = [
+  {
+    ticketNumber: 'TKT-501',
+    customerId: 101,
+    customerName: 'Fatima Ali',
+    contact: '+92 321 9876543',
+    address: 'House #42, Street 8, Model Town B, Bahawalpur',
+    serviceType: '1-Month TDS Audit',
+    machineModel: 'R.O 100 Gallon Per Day Plant',
+    scheduledDate: '2023-11-21',
+    timeSlot: '11:00 AM - 01:00 PM',
+    status: 'Scheduled', // 'Scheduled' | 'In Progress' | 'Completed' | 'Cancelled'
+    technicianName: 'Ali Raza',
+    priority: 'Medium',
+    sparePartsRequired: [
+      { sku: 'SED-5MIC-10', name: 'Sediment Filter Cartridge 5 Micron', qty: 1 },
+    ],
+    customerNotes: 'Please ring bell twice, gate is locked.',
+  },
+  {
+    ticketNumber: 'TKT-502',
+    customerId: 102,
+    customerName: 'Enterprise Corp Ltd. (Mr. Raza)',
+    contact: '+92 333 1112223',
+    address: 'Plot 12-B, Industrial Estate, Bahawalpur',
+    serviceType: '2-Month Filter Replacement',
+    machineModel: 'Commercial RO Plant 500 GPD',
+    scheduledDate: '2023-11-21',
+    timeSlot: '02:30 PM - 04:30 PM',
+    status: 'In Progress',
+    technicianName: 'Usman Tariq',
+    priority: 'High',
+    sparePartsRequired: [
+      { sku: 'JMB-2STG-20', name: 'Jumbo 20" Sediment Cartridge', qty: 2 },
+      { sku: 'CTO-10IN', name: 'Carbon Block CTO Cartridge', qty: 2 },
+    ],
+    customerNotes: 'Security gate pass requires CNIC copy.',
+  },
+  {
+    ticketNumber: 'TKT-503',
+    customerId: null,
+    customerName: 'Kashif Mehmood',
+    contact: '0333 7788990',
+    address: 'House 88, Street 3, Cheema Town, Bahawalpur',
+    serviceType: 'New System Installation',
+    machineModel: 'R.O 100 Gallon Per Day Plant',
+    scheduledDate: '2023-11-22',
+    timeSlot: '10:00 AM - 12:00 PM',
+    status: 'Pending Assignment',
+    technicianName: 'Unassigned',
+    priority: 'Normal',
+    sparePartsRequired: [
+      { sku: 'RO-100-ST', name: 'R.O 100 GPD Plant With Heavy Stand', qty: 1 },
+    ],
+    customerNotes: 'Incoming web order #WEB-1092 installation.',
+  },
+]

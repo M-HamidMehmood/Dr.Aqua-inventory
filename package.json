@@ -4,11 +4,15 @@
   "description": "Dr. Aqua Business Management Dashboard - Standalone React App",
   "private": true,
   "dependencies": {
+    "chart.js": "^4.4.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "jspdf": "^2.5.1",
+    "lucide-react": "^1.39.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "chart.js": "^4.4.1",
-    "jspdf": "^2.5.1"
+    "tailwind-merge": "^3.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
