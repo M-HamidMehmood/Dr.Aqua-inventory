@@ -1,0 +1,47 @@
+export const mockAuthAccounts = {
+  'admin@draqua.pk': {
+    user: {
+      id: 'usr-1',
+      name: 'Engr. Director',
+      email: 'admin@draqua.pk',
+      role: 'admin',
+      roleTitle: '👑 Owner & Principal Engineer',
+      branch: 'Main Branch (Model Town B, Bahawalpur)',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+      permissions: ['all'],
+    },
+    passwordHash: 'admin123',
+    securityQuestion: 'What is your operational branch code?',
+    phone: '+92 334 7071759',
+  },
+  'cashier1@draqua.pk': {
+    user: {
+      id: 'usr-2',
+      name: 'Bilal Cashier',
+      email: 'cashier1@draqua.pk',
+      role: 'cashier',
+      roleTitle: '🧾 Senior Billing Cashier',
+      branch: 'Main Branch (Model Town B, Bahawalpur)',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
+      permissions: ['pos_billing', 'inventory_view', 'customer_view', 'shift_closing'],
+    },
+    passwordHash: 'cashier123',
+    securityQuestion: 'What is your cashier station ID?',
+    phone: '+92 300 8899112',
+  },
+  'tech.ali@draqua.pk': {
+    user: {
+      id: 'usr-3',
+      name: 'Ali Raza',
+      email: 'tech.ali@draqua.pk',
+      role: 'technician',
+      roleTitle: '🛠️ Certified Field Technician',
+      branch: 'Service Van Unit 1 (Bahawalpur City)',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
+      permissions: ['service_tickets', 'service_radar_view', 'spare_parts_deduct'],
+    },
+    passwordHash: 'tech123',
+    securityQuestion: 'What is your mobile service unit number?',
+    phone: '+92 321 9876543',
+  },
+}

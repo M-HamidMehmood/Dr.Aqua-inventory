@@ -3,8 +3,16 @@ import BillingManager from './components/BillingManager.jsx'
 import CustomerManager from './components/CustomerManager.jsx'
 import InventoryManager from './components/InventoryManager.jsx'
 import SalesDashboard from './components/SalesDashboard.jsx'
+import AuthPortal from './components/auth/AuthPortal.jsx'
+import DrAquaLogo from './components/ui/DrAquaLogo.jsx'
+import NotificationsPopover from './components/analytics/NotificationsPopover.jsx'
+import { Badge } from './components/ui/badge.jsx'
+import { Button } from './components/ui/button.jsx'
+import { initialMockRegistry } from './data/mock/index.js'
+import { LogOut, User, Building2 } from 'lucide-react'
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null)
   const [activeTab, setActiveTab] = useState('dashboard')
   const [inventory, setInventory] = useState([])
   const [customers, setCustomers] = useState([])
@@ -13,13 +21,22 @@ function App() {
 
   // Load from localStorage on mount
   useEffect(() => {
-    const savedInventory = localStorage.getItem('draqua-inventory')
-    const savedCustomers = localStorage.getItem('draqua-customers')
-    const savedSales = localStorage.getItem('draqua-sales')
+    try {
+      const savedUser = localStorage.getItem('draqua-user')
+      const savedInventory = localStorage.getItem('draqua-inventory')
+      const savedCustomers = localStorage.getItem('draqua-customers')
+      const savedSales = localStorage.getItem('draqua-sales')
 
-    if (savedInventory) setInventory(JSON.parse(savedInventory))
-    if (savedCustomers) setCustomers(JSON.parse(savedCustomers))
-    if (savedSales) setSales(JSON.parse(savedSales))
+      if (savedUser) setCurrentUser(JSON.parse(savedUser))
+      setInventory(savedInventory ? JSON.parse(savedInventory) : initialMockRegistry.products)
+      setCustomers(savedCustomers ? JSON.parse(savedCustomers) : initialMockRegistry.customers)
+      setSales(savedSales ? JSON.parse(savedSales) : initialMockRegistry.sales)
+    } catch (e) {
+      console.error('Error loading localStorage state:', e)
+      setInventory(initialMockRegistry.products)
+      setCustomers(initialMockRegistry.customers)
+      setSales(initialMockRegistry.sales)
+    }
 
     setIsLoaded(true)
   }, [])
@@ -44,73 +61,122 @@ function App() {
   const updateCustomers = (newCustomers) => setCustomers(newCustomers)
   const addSale = (sale) => setSales((prev) => [...prev, sale])
 
-  const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'inventory', label: 'Inventory', icon: '📦' },
-    { id: 'billing', label: 'Billing', icon: '🧾' },
-    { id: 'customers', label: 'Customers', icon: '👥' },
+  const handleLoginSuccess = (user) => {
+    setCurrentUser(user)
+    if (user.role === 'cashier') setActiveTab('billing')
+    else if (user.role === 'technician') setActiveTab('customers')
+    else setActiveTab('dashboard')
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('draqua-user')
+    setCurrentUser(null)
+  }
+
+  // Base tabs
+  const allTabs = [
+    { id: 'dashboard', label: 'Dashboard', icon: '📊', roles: ['admin'] },
+    { id: 'inventory', label: 'Inventory', icon: '📦', roles: ['admin', 'cashier'] },
+    { id: 'billing', label: 'POS Billing', icon: '🧾', roles: ['admin', 'cashier'] },
+    { id: 'customers', label: 'Customers & Radar', icon: '👥', roles: ['admin', 'cashier', 'technician'] },
   ]
+
+  const visibleTabs = allTabs.filter(
+    (tab) => !currentUser || tab.roles.includes(currentUser.role)
+  )
 
   if (!isLoaded) {
     return (
-      <div className='min-h-screen bg-gray-100 flex items-center justify-center'>
-        <div className='text-gray-600'>Loading...</div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          <div className="text-xs font-semibold text-muted-foreground font-outfit">Loading Dr. Aqua Hub...</div>
+        </div>
       </div>
     )
   }
 
+  // If not authenticated, render the Enterprise Split-Screen Auth Portal (Screens 1 & 2)
+  if (!currentUser) {
+    return <AuthPortal onLoginSuccess={handleLoginSuccess} />
+  }
+
   return (
-    <div className='min-h-screen bg-gray-100'>
-      {/* Header */}
-      <header className='bg-white shadow-sm'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex justify-between items-center h-16'>
-            <div className='flex items-center gap-4'>
-              <img
-                src='/images/logo.png'
-                alt='Dr. Aqua Logo'
-                className='h-12 w-auto'
-              />
-              <span className='text-gray-400'>|</span>
-              <h1 className='text-lg font-semibold text-gray-900'>
-                Business Management
-              </h1>
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+      {/* Top Header */}
+      <header className="bg-card border-b border-border/80 shadow-xs sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo & Company Title */}
+            <div className="flex items-center gap-3">
+              <DrAquaLogo size="sm" />
+              <div className="border-l border-border pl-3 hidden sm:block">
+                <div className="text-[10px] text-muted-foreground flex items-center gap-1 font-medium">
+                  <Building2 className="w-3 h-3 text-cyan-600" />
+                  <span>{currentUser.activeBranch || currentUser.branch}</span>
+                </div>
+              </div>
             </div>
-            <div className='flex items-center gap-4 text-sm text-gray-600'>
-              <span>Products: {inventory.length}</span>
-              <span>•</span>
-              <span>Customers: {customers.length}</span>
-              <span>•</span>
-              <span>Orders: {sales.length}</span>
+
+            {/* User Profile & Notifications */}
+            <div className="flex items-center gap-3">
+              {/* Screen 4: Notifications Popover */}
+              <NotificationsPopover
+                onActionClick={(alert) => {
+                  if (alert.type === 'low_stock') setActiveTab('inventory')
+                  else if (alert.type === 'radar_due') setActiveTab('customers')
+                  else if (alert.type === 'dispatch_delay') setActiveTab('customers')
+                }}
+              />
+
+              <div className="hidden sm:flex flex-col text-right">
+                <span className="text-xs font-bold text-foreground font-outfit">{currentUser.name}</span>
+                <span className="text-[10px] text-muted-foreground">{currentUser.email}</span>
+              </div>
+              <Badge
+                variant={currentUser.role === 'admin' ? 'default' : currentUser.role === 'cashier' ? 'accent' : 'warning'}
+                className="capitalize text-[11px] font-bold"
+              >
+                {currentUser.role}
+              </Badge>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="gap-1.5 text-xs text-muted-foreground hover:text-destructive hover:border-destructive/40"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Sign Out</span>
+              </Button>
             </div>
           </div>
         </div>
       </header>
 
       {/* Navigation Tabs */}
-      <nav className='bg-white border-b border-gray-200'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex space-x-1'>
-            {tabs.map((tab) => (
+      <nav className="bg-card border-b border-border/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex space-x-1">
+            {visibleTabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-3 text-sm font-medium transition-colors ${
+                className={`px-4 py-3 text-xs font-semibold font-outfit transition-all border-b-2 cursor-pointer flex items-center gap-2 ${
                   activeTab === tab.id
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'border-primary text-primary bg-primary/5'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/40'
                 }`}
               >
-                <span className='mr-2'>{tab.icon}</span>
-                {tab.label}
+                <span>{tab.icon}</span>
+                <span>{tab.label}</span>
               </button>
             ))}
           </div>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+      {/* Main Content Workspace */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
         {activeTab === 'dashboard' && <SalesDashboard sales={sales} />}
         {activeTab === 'inventory' && (
           <InventoryManager
@@ -136,11 +202,10 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className='bg-white border-t border-gray-200 mt-auto'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4'>
-          <p className='text-center text-sm text-gray-500'>
-            Dr. Aqua Business Management System • Data stored locally in browser
-          </p>
+      <footer className="bg-card border-t border-border/60 py-3 text-center text-xs text-muted-foreground">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px]">
+          <span>Dr. Aqua Omni-Management Hub • Bahawalpur Operations</span>
+          <span className="text-muted-foreground">Local Session Encrypted (AES-256)</span>
         </div>
       </footer>
     </div>

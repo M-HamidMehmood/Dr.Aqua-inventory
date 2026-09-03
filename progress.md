@@ -47,12 +47,12 @@
 | Phase | Screen # | Screen Name & Description | Design (Stitch) | Foundation / Mock | UI Component | Status |
 | :---: | :---: | :--- | :---: | :---: | :---: | :---: |
 | **Foundation** | **—** | Design Tokens, shadcn Primitives, Mock Registry | ✅ Complete | ✅ Complete | ✅ Complete | **COMPLETED & LOCKED ✅** |
-| **Phase 1: Auth** | **1** | Login & Role-Based Access Portal (`admin`, `cashier`, `technician`) | ✅ Complete | ✅ Ready | ⏳ Next Up | Scheduled |
-| | **2** | Forgot Password & 6-Digit OTP Recovery Portal | ✅ Complete | ✅ Ready | ⏳ Next Up | Scheduled |
-| **Phase 2: Analytics** | **3** | Executive Sales Analytics Dashboard | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
-| | **4** | Top Segmented Notifications Popover Center | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
-| | **5** | Bahawalpur Water Quality & TDS Intelligence Map | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
-| **Phase 3: Inventory** | **6** | Omnichannel Inventory Base View (85%+ Height Viewport) | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
+| **Phase 1: Auth** | **1** | Login & Role-Based Access Portal (`admin`, `cashier`, `technician`) | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| | **2** | Forgot Password & 6-Digit OTP Recovery Portal | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| **Phase 2: Analytics** | **3** | Executive Sales Analytics Dashboard | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| | **4** | Top Segmented Notifications Popover Center | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| | **5** | Bahawalpur Water Quality & TDS Intelligence Map | ✅ Complete | ✅ Ready | ✅ Complete | **COMPLETED ✅** |
+| **Phase 3: Inventory** | **6** | Omnichannel Inventory Base View (85%+ Height Viewport) | ✅ Complete | ✅ Ready | ⏳ Next Up | Scheduled |
 | | **7** | `+ Add / Edit Product` Slide-Over Drawer | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
 | | **8** | `Quick Restock (+10 / -5)` Stepper Modal | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
 | | **9** | Barcode & Thermal Shelf Label Print Modal | ✅ Complete | ✅ Ready | ⏳ Pending | Scheduled |
@@ -79,9 +79,12 @@
 ## 🧱 Component & File Inventory
 
 ### UI Primitives (`src/components/ui/`)
+- [x] `DrAquaLogo.jsx` — Official high-fidelity vector & raster SVG component matching `/public/images/logo.png` (supports full wordmark & emblem 'Q')
 - [x] `src/lib/utils.js` / `src/lib/utils.ts` — `cn` class merger helper (`clsx` + `tailwind-merge`)
 - [x] `button.jsx` — CVA variants (`default`, `destructive`, `outline`, `secondary`, `ghost`, `link`, `whatsapp`, `accent`)
 - [x] `input.jsx` — Clean enterprise input with focus rings and icon slots
+- [x] `label.jsx` — Accessible label primitive
+- [x] `input-otp.jsx` — 6-digit auto-advancing OTP verification input with paste & backspace support
 - [x] `badge.jsx` — Semantic indicator badges (`default`, `secondary`, `destructive`, `outline`, `success`, `warning`, `whatsapp`, `accent`)
 - [x] `card.jsx` — Compound Card primitives (`Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`)
 - [x] `separator.jsx` — Hairline structural dividers
@@ -90,6 +93,19 @@
 - [x] `sheet.jsx` — Slide-over drawer container (`Sheet`, `SheetTrigger`, `SheetContent`, `SheetHeader`, `SheetFooter`, `SheetTitle`, `SheetDescription`)
 - [x] `table.jsx` — High-density tabular grid components (`Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableHead`, `TableRow`, `TableCell`, `TableCaption`)
 - [x] `avatar.jsx` — User initials and profile circles (`Avatar`, `AvatarImage`, `AvatarFallback`)
+- [x] `popover.jsx` — Clean anchor popover container with outside click listener (`Popover`, `PopoverTrigger`, `PopoverContent`)
+- [x] `skeleton.jsx` — Animated pulse skeleton loading placeholder
+
+### Phase 1: Authentication Suite (`src/components/auth/`)
+- [x] `AuthPortal.jsx` — Centered, minimalist card layout with ambient water-mesh glow, official `DrAquaLogo`, and clean view switching (Sign In & Forgot Password)
+- [x] `LoginView.jsx` — [Screen 1] Pure minimalist Sign In with generic Email and Password inputs; user role is automatically determined in the background upon authentication
+- [x] `ForgotPasswordView.jsx` — [Screen 2] Multi-step recovery (contact intake, 6-digit auto-advancing OTP, password strength)
+- [x] `AuthVisualPane.jsx` — Reusable **Industrial & Domestic Water Intelligence** showcase module + Bahawalpur municipal TDS telemetry
+
+### Phase 2: Executive Analytics Suite (`src/components/analytics/` & `src/components/SalesDashboard.jsx`)
+- [x] `SalesDashboard.jsx` — [Screen 3] 4 Metric KPI summary cards with directional percentage trend chips, multi-period Chart.js revenue & service audit performance visualizer, omnichannel velocity breakdown
+- [x] `NotificationsPopover.jsx` — [Screen 4] Top segmented alert center under the bell icon with `Low Stock`, `Radar Due`, `Transit Delays`, and 1-click WhatsApp/Dispatch CTAs
+- [x] `WaterPurityTDSMap.jsx` — [Screen 5] Interactive Bahawalpur municipal groundwater hardness sector matrix (Model Town, Satellite Town, Industrial Estate, etc.) with detailed equipment prescription inspector
 
 ### Central Mock Registry (`src/data/mock/`)
 - [x] `sectors.js` — Bahawalpur city sectors, TDS readings, water hardness index, filter life forecasts
