@@ -1,0 +1,247 @@
+export interface AllocatedPart {
+  id: number
+  sku: string
+  name: string
+  qty: number
+  price: number
+  inStock: number
+}
+
+export interface ServiceTicket {
+  id: string
+  ticketNumber: string
+  customerName: string
+  customerPhone: string
+  sector: string
+  streetAddress: string
+  timeSlot: string
+  jobType: 'New RO Installation' | 'Membrane Replacement' | 'Emergency Leak' | 'TDS Inspection & Cartridge Swap'
+  priority: 'urgent' | 'high' | 'normal'
+  status: 'assigned' | 'in_progress' | 'completed'
+  technicianId: string
+  technicianName: string
+  allocatedParts: AllocatedPart[]
+  symptoms: string
+  feedTds?: number
+  permeateTds?: number
+  feePkr: number
+}
+
+export interface TechnicianProfile {
+  id: string
+  name: string
+  role: string
+  phone: string
+  van: string
+  assignedZone: string
+  status: 'Active on Route' | 'At Workshop' | 'On Break'
+  activeJobsCount: number
+  maxDailyCapacity: number
+  rating: number
+}
+
+export const mockTechnicians: TechnicianProfile[] = [
+  {
+    id: 'tech-1',
+    name: 'Hamza Abbasi',
+    role: 'Lead RO Systems Specialist',
+    phone: '+92 334 7071751',
+    van: 'VAN-01 (Toyota Hiace)',
+    assignedZone: 'Model Town A & B, Cheema Town',
+    status: 'Active on Route',
+    activeJobsCount: 4,
+    maxDailyCapacity: 5,
+    rating: 4.9,
+  },
+  {
+    id: 'tech-2',
+    name: 'Usman Tariq',
+    role: 'Commercial RO & Plant Engineer',
+    phone: '+92 300 8921445',
+    van: 'VAN-02 (Suzuki Bolan)',
+    assignedZone: 'Industrial Estate & Circular Road',
+    status: 'Active on Route',
+    activeJobsCount: 3,
+    maxDailyCapacity: 5,
+    rating: 4.8,
+  },
+  {
+    id: 'tech-3',
+    name: 'Zeeshan Malik',
+    role: 'Domestic Filter Technician',
+    phone: '+92 321 4455661',
+    van: 'VAN-03 (Honda CD70 Bike Tool-Box)',
+    assignedZone: 'Satellite Town & BVH Medical Colony',
+    status: 'On Break',
+    activeJobsCount: 2,
+    maxDailyCapacity: 4,
+    rating: 4.7,
+  },
+  {
+    id: 'tech-4',
+    name: 'Babar Khan',
+    role: 'High-TDS Desalination Tech',
+    phone: '+92 333 1122334',
+    van: 'VAN-04 (Toyota TownAce)',
+    assignedZone: 'DHA Phase 5 & Cantt Area',
+    status: 'Active on Route',
+    activeJobsCount: 3,
+    maxDailyCapacity: 5,
+    rating: 4.9,
+  },
+]
+
+export const mockServiceTickets: ServiceTicket[] = [
+  {
+    id: 'tkt-4401',
+    ticketNumber: 'TKT-4401',
+    customerName: 'Fatima Ali',
+    customerPhone: '+92 334 7071759',
+    sector: 'Model Town B',
+    streetAddress: 'House 42, Circular Road',
+    timeSlot: '09:30 AM - 11:00 AM',
+    jobType: 'Emergency Leak',
+    priority: 'urgent',
+    status: 'in_progress',
+    technicianId: 'tech-1',
+    technicianName: 'Hamza Abbasi',
+    allocatedParts: [
+      {
+        id: 11,
+        sku: 'CTO-10IN',
+        name: 'Carbon Block CTO Cartridge (10")',
+        qty: 1,
+        price: 750,
+        inStock: 50,
+      },
+      {
+        id: 13,
+        sku: 'FIT-ELB-14',
+        name: 'Quick Connect Elbow Fitting 1/4"',
+        qty: 2,
+        price: 120,
+        inStock: 80,
+      },
+    ],
+    symptoms: 'Sudden high pressure drip from booster pump connection elbow.',
+    feedTds: 420,
+    permeateTds: 24,
+    feePkr: 1500,
+  },
+  {
+    id: 'tkt-4402',
+    ticketNumber: 'TKT-4402',
+    customerName: 'Bilal Textile Mills',
+    customerPhone: '+92 333 9988776',
+    sector: 'Industrial Estate',
+    streetAddress: 'Plot 44-A, Industrial Estate Corridor',
+    timeSlot: '11:30 AM - 01:30 PM',
+    jobType: 'Membrane Replacement',
+    priority: 'high',
+    status: 'assigned',
+    technicianId: 'tech-2',
+    technicianName: 'Usman Tariq',
+    allocatedParts: [
+      {
+        id: 8,
+        sku: 'MEM-DOW-75',
+        name: 'Dow Filmtec 75 GPD Original RO Membrane',
+        qty: 2,
+        price: 4800,
+        inStock: 18,
+      },
+    ],
+    symptoms: 'Groundwater TDS scaled up to 1,420 PPM. Permeate quality degraded to 180 PPM.',
+    feedTds: 1420,
+    permeateTds: 180,
+    feePkr: 3000,
+  },
+  {
+    id: 'tkt-4403',
+    ticketNumber: 'TKT-4403',
+    customerName: 'Kashif Mehmood',
+    customerPhone: '+92 334 5566778',
+    sector: 'Cheema Town & Gulberg',
+    streetAddress: 'House 14, Street 2, Cheema Town',
+    timeSlot: '02:00 PM - 04:00 PM',
+    jobType: 'New RO Installation',
+    priority: 'high',
+    status: 'assigned',
+    technicianId: 'tech-1',
+    technicianName: 'Hamza Abbasi',
+    allocatedParts: [
+      {
+        id: 1,
+        sku: 'RO-100-ST',
+        name: 'R.O 100 Gallon Per Day Plant (With Iron Stand)',
+        qty: 1,
+        price: 28500,
+        inStock: 14,
+      },
+    ],
+    symptoms: 'Brand new domestic installation for web order #WEB-1092. Stand leveling required.',
+    feePkr: 1500,
+  },
+  {
+    id: 'tkt-4404',
+    ticketNumber: 'TKT-4404',
+    customerName: 'Dr. Zafar Iqbal',
+    customerPhone: '+92 300 4567890',
+    sector: 'Satellite Town',
+    streetAddress: 'BVH Doctor Colony, Banglow 12',
+    timeSlot: '02:30 PM - 03:45 PM',
+    jobType: 'TDS Inspection & Cartridge Swap',
+    priority: 'normal',
+    status: 'assigned',
+    technicianId: 'tech-3',
+    technicianName: 'Zeeshan Malik',
+    allocatedParts: [
+      {
+        id: 10,
+        sku: 'SED-5MIC-10',
+        name: 'Sediment Filter Cartridge 5 Micron (10" Spun)',
+        qty: 2,
+        price: 450,
+        inStock: 45,
+      },
+      {
+        id: 11,
+        sku: 'CTO-10IN',
+        name: 'Carbon Block CTO Cartridge (10")',
+        qty: 1,
+        price: 750,
+        inStock: 50,
+      },
+    ],
+    symptoms: 'Automated 60-day service radar notification trigger. Pre-filters saturated with canal sediment.',
+    feedTds: 490,
+    permeateTds: 32,
+    feePkr: 1000,
+  },
+  {
+    id: 'tkt-4405',
+    ticketNumber: 'TKT-4405',
+    customerName: 'Captain Mansoor Abbasi',
+    customerPhone: '+92 300 9911223',
+    sector: 'DHA Phase 5 & Cantt',
+    streetAddress: 'House 5, Street 18, Sector A, DHA Phase 5',
+    timeSlot: '04:15 PM - 05:45 PM',
+    jobType: 'New RO Installation',
+    priority: 'normal',
+    status: 'assigned',
+    technicianId: 'tech-4',
+    technicianName: 'Babar Khan',
+    allocatedParts: [
+      {
+        id: 3,
+        sku: 'ASP-100-GPD',
+        name: 'Aspire 100 GPD Domestic RO System (Luxury)',
+        qty: 1,
+        price: 34000,
+        inStock: 8,
+      },
+    ],
+    symptoms: 'Installation of luxury series unit with pressure booster tank testing.',
+    feePkr: 2000,
+  },
+]

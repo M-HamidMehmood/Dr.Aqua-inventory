@@ -3,6 +3,9 @@ import BillingManager from './components/BillingManager.jsx'
 import CustomerManager from './components/CustomerManager.jsx'
 import InventoryManager from './components/InventoryManager.jsx'
 import SalesDashboard from './components/SalesDashboard.jsx'
+import WebOrdersManager from './components/weborders/WebOrdersManager.jsx'
+import DispatchBoardManager from './components/dispatch/DispatchBoardManager.jsx'
+import SettingsManager from './components/settings/SettingsManager.jsx'
 import AuthPortal from './components/auth/AuthPortal.jsx'
 import DrAquaLogo from './components/ui/DrAquaLogo.jsx'
 import NotificationsPopover from './components/analytics/NotificationsPopover.jsx'
@@ -79,6 +82,9 @@ function App() {
     { id: 'inventory', label: 'Inventory', icon: '📦', roles: ['admin', 'cashier'] },
     { id: 'billing', label: 'POS Billing', icon: '🧾', roles: ['admin', 'cashier'] },
     { id: 'customers', label: 'Customers & Radar', icon: '👥', roles: ['admin', 'cashier', 'technician'] },
+    { id: 'web_orders', label: 'Web Orders', icon: '🌐', roles: ['admin', 'cashier'] },
+    { id: 'dispatch', label: 'Field Dispatch', icon: '🚐', roles: ['admin', 'technician'] },
+    { id: 'settings', label: 'Settings', icon: '⚙️', roles: ['admin'] },
   ]
 
   const visibleTabs = allTabs.filter(
@@ -199,6 +205,9 @@ function App() {
             updateCustomers={updateCustomers}
           />
         )}
+        {activeTab === 'web_orders' && <WebOrdersManager />}
+        {activeTab === 'dispatch' && <DispatchBoardManager inventory={inventory} />}
+        {activeTab === 'settings' && <SettingsManager />}
       </main>
 
       {/* Footer */}
