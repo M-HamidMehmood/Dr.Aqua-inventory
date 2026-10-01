@@ -26,6 +26,7 @@
 ## 3. Directory & File Map
 ```
 Dr.Aqua-inventory/
+├── TODO.md                   # Master implementation roadmap & task tracker
 ├── public/
 │   ├── index.html            # Loads Tailwind CSS CDN & root mount div
 │   └── images/               # Static assets (logo.png)

@@ -1,35 +1,37 @@
-# Dr. Aqua Dashboard - Standalone React App
+# Dr. Aqua Dashboard — Standalone React App
 
-A complete business management dashboard extracted from the Dr. Aqua Next.js project.
+A complete, role-governed business management system for Dr. Aqua water filtration and purification operations.
 
-## Features
+---
 
-- 📊 **Sales Dashboard** - Track daily, weekly, and monthly sales with charts
-- 📦 **Inventory Management** - Add, edit, delete products with stock alerts
-- 🧾 **Billing & Receipts** - Generate bills and download PDF receipts
-- 👥 **Customer Management** - Track customers with service reminders
+## 📌 Features
 
-## Getting Started
+- 🔐 **Role-Based Authentication** — Secure login supporting **Admin**, **Cashier**, and **Technician** roles with strictly guarded views. *(See [AUTH.md](file:///Users/laptopchoice/Desktop/Dr.Aqua-inventory/AUTH.md))*.
+- 📊 **Sales & Financial Dashboard** — Real-time revenue analytics, daily/weekly/monthly breakdown, and Chart.js visualizations (Admin only).
+- 📦 **Inventory Management & Stock Lookup** — Full product catalog CRUD for Admin; fast stock search and availability lookup for Cashiers with low-stock alerts.
+- 🧾 **POS Billing & PDF Receipts** — Multi-item bill creation, automatic stock deduction, and downloadable branded A4 PDF receipts.
+- 👥 **Customer Directory & CRM** — Customer database with complete purchase history.
+- 🔧 **Technician Field Portal** — 1-month maintenance checks, 2-month filter replacements, 1-click WhatsApp (`wa.me`) alerts, phone dialing, and service log tracking.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-
-- Node.js 16+ installed
+- Node.js 16+
 - npm or yarn
 
-### Installation
+### Installation & Run
 
 ```bash
-# Navigate to the dashboard folder
-cd dashboard-standalone
-
 # Install dependencies
 npm install
 
-# Start the development server
+# Start development server
 npm start
 ```
 
-The app will open at http://localhost:3000
+The app will launch on `http://localhost:3000` (or `http://localhost:3001` if port 3000 is occupied).
 
 ### Build for Production
 
@@ -37,43 +39,20 @@ The app will open at http://localhost:3000
 npm run build
 ```
 
-The production build will be in the `build` folder.
+---
 
-## Tech Stack
+## 🔑 Default Credentials
 
-- React 18
-- Chart.js (for sales charts)
-- jsPDF (for PDF generation)
-- Tailwind CSS (via CDN)
-- localStorage (for data persistence)
+| Role | Username / Email | Password | Allowed Workspace |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin` *(or `admin@draqua.pk`)* | `admin123` | Full access (Revenue, Inventory, Billing, Customers, Services) |
+| **Cashier** | `cashier` *(or `cashier@draqua.pk`)* | `cashier123` | POS Billing & Check Stock |
+| **Technician** | `tech` *(or `tech@draqua.pk`)* | `tech123` | Customer Service Visits & WhatsApp reminders |
 
-## Data Storage
+---
 
-All data is stored in the browser's localStorage:
-- `draqua-inventory` - Product inventory
-- `draqua-customers` - Customer records
-- `draqua-sales` - Sales history
+## 🗺️ Roadmap & Documentation
 
-## Project Structure
-
-```
-dashboard-standalone/
-├── public/
-│   └── index.html
-├── src/
-│   ├── components/
-│   │   ├── BillingManager.js
-│   │   ├── CustomerManager.js
-│   │   ├── InventoryManager.js
-│   │   └── SalesDashboard.js
-│   ├── App.js
-│   ├── index.js
-│   ├── index.css
-│   └── types.ts
-├── package.json
-└── README.md
-```
-
-## License
-
-MIT
+- [AUTH.md](file:///Users/laptopchoice/Desktop/Dr.Aqua-inventory/AUTH.md) — Authentication architecture, session persistence, and RBAC matrix.
+- [TODO.md](file:///Users/laptopchoice/Desktop/Dr.Aqua-inventory/TODO.md) — Master phased implementation roadmap.
+- [AGENTS.md](file:///Users/laptopchoice/Desktop/Dr.Aqua-inventory/AGENTS.md) — Directives and architecture quick reference.

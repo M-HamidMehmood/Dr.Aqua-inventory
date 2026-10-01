@@ -10,6 +10,7 @@
 - **Persistence Keys**: `draqua-inventory`, `draqua-customers`, `draqua-sales`
 
 ## Fast Execution Map
+- **Master Roadmap & Tasks**: `TODO.md`
 - **Sales Analytics**: `src/components/SalesDashboard.jsx`
 - **Inventory & Stock Alert**: `src/components/InventoryManager.jsx`
 - **Billing & PDF Receipts**: `src/components/BillingManager.jsx`
