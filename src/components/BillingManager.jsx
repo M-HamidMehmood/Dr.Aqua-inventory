@@ -32,9 +32,13 @@ import {
   Wallet,
   CreditCard,
   Landmark,
+  Eye,
+  MessageSquare,
 } from './ui/Icons'
 import { useLanguage } from '../context/LanguageContext'
 import { formatCurrency } from '../utils/translations'
+import ImagePreviewModal from './ui/ImagePreviewModal'
+import WhatsAppPreviewModal from './WhatsAppPreviewModal'
 
 export default function BillingManager({
   inventory,
@@ -59,6 +63,11 @@ export default function BillingManager({
   const [bankName, setBankName] = useState('Meezan Bank')
   const [discount, setDiscount] = useState(0)
   const [orderNotes, setOrderNotes] = useState('')
+
+  // Preview & WhatsApp Dialog States
+  const [previewProduct, setPreviewProduct] = useState(null)
+  const [whatsAppModalData, setWhatsAppModalData] = useState(null)
+  const [lastSettledSale, setLastSettledSale] = useState(null)
 
 
   const showNotice = (message, type = 'info') => {
@@ -173,6 +182,7 @@ export default function BillingManager({
     )
 
     showNotice(t('billSettledSuccess', { invoice }), 'success')
+    setLastSettledSale(sale)
     setBill({ customerId: '', items: [] })
     setPaymentReference('')
     setDiscount(0)
@@ -353,6 +363,20 @@ export default function BillingManager({
             <Check className='w-4 h-4 flex-shrink-0' />
           )}
           <span>{notification.message}</span>
+          {lastSettledSale && notification.type !== 'error' && (
+            <Button
+              type='button'
+              size='sm'
+              variant='outline'
+              onClick={() => setWhatsAppModalData(lastSettledSale)}
+              className={`h-7 text-xs font-semibold gap-1.5 text-emerald-800 dark:text-emerald-300 bg-white/90 dark:bg-emerald-900/40 border-emerald-300 hover:bg-emerald-100 ${
+                isRTL ? 'mr-auto' : 'ml-auto'
+              } cursor-pointer`}
+            >
+              <MessageSquare className='w-3.5 h-3.5 text-emerald-600' />
+              <span>{language === 'ur' ? 'واٹس ایپ رسید' : 'WhatsApp Receipt'}</span>
+            </Button>
+          )}
         </div>
       )}
 
@@ -639,12 +663,35 @@ export default function BillingManager({
                       return (
                         <TableRow key={idx}>
                           <TableCell>
-                            <div className='font-medium text-foreground text-xs'>
-                              {itemName}
+                            <div className='flex items-center gap-2.5'>
+                              {item.image && (
+                                <div
+                                  onClick={() => setPreviewProduct(item)}
+                                  className='relative group w-8 h-8 rounded-md overflow-hidden border border-border/80 shrink-0 cursor-zoom-in bg-muted/40 hover:ring-2 hover:ring-primary/60 transition-all'
+                                  title={language === 'ur' ? 'بڑی تصویر دیکھیں' : 'Click to enlarge image'}
+                                >
+                                  <img
+                                    src={item.image}
+                                    alt={itemName}
+                                    className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-200'
+                                    onError={(e) => {
+                                      e.currentTarget.style.display = 'none'
+                                    }}
+                                  />
+                                  <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white'>
+                                    <Eye className='w-3 h-3' />
+                                  </div>
+                                </div>
+                              )}
+                              <div>
+                                <div className='font-medium text-foreground text-xs'>
+                                  {itemName}
+                                </div>
+                                <span className='font-mono text-[10px] text-muted-foreground' dir='ltr'>
+                                  {item.sku || `DA-${item.id}`}
+                                </span>
+                              </div>
                             </div>
-                            <span className='font-mono text-[10px] text-muted-foreground' dir='ltr'>
-                              {item.sku || `DA-${item.id}`}
-                            </span>
                           </TableCell>
                           <TableCell className='text-center font-mono font-semibold text-xs'>
                             {item.qty}
@@ -700,6 +747,29 @@ export default function BillingManager({
                 </div>
               </div>
 
+              {/* Persistent Last Settled Sale Action Banner */}
+              {lastSettledSale && (
+                <div className='w-full p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 flex items-center justify-between gap-2 animate-in fade-in'>
+                  <div className='flex items-center gap-1.5 text-xs text-emerald-800 dark:text-emerald-300'>
+                    <Check className='w-4 h-4 text-emerald-600 flex-shrink-0' />
+                    <span className='font-semibold'>
+                      {language === 'ur'
+                        ? `بل ${lastSettledSale.invoice} ادا ہو گیا`
+                        : `Invoice ${lastSettledSale.invoice} Settled`}
+                    </span>
+                  </div>
+                  <Button
+                    size='sm'
+                    variant='outline'
+                    onClick={() => setWhatsAppModalData(lastSettledSale)}
+                    className='h-7 text-xs font-semibold gap-1.5 text-emerald-800 dark:text-emerald-300 bg-white dark:bg-emerald-900/50 border-emerald-300 hover:bg-emerald-100 cursor-pointer shadow-subtle flex-shrink-0'
+                  >
+                    <MessageSquare className='w-3.5 h-3.5 text-emerald-600' />
+                    <span>{language === 'ur' ? 'واٹس ایپ رسید' : 'WhatsApp Receipt'}</span>
+                  </Button>
+                </div>
+              )}
+
               {/* Action Buttons */}
               <div className='grid grid-cols-2 gap-3 w-full'>
                 <Button
@@ -725,6 +795,30 @@ export default function BillingManager({
           </Card>
         </div>
       </div>
+
+      {/* High-Resolution Product Preview Modal */}
+      <ImagePreviewModal
+        isOpen={!!previewProduct}
+        onClose={() => setPreviewProduct(null)}
+        product={previewProduct}
+      />
+
+      {/* Interactive WhatsApp Preview Modal */}
+      {whatsAppModalData && (
+        <WhatsAppPreviewModal
+          isOpen={!!whatsAppModalData}
+          onClose={() => setWhatsAppModalData(null)}
+          recipientName={whatsAppModalData.customerName}
+          recipientPhone={
+            customers.find((c) => c.id === whatsAppModalData.customerId)?.contact || ''
+          }
+          contextType='order'
+          contextData={{
+            ...whatsAppModalData,
+            status: 'Completed',
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -43,7 +43,9 @@ import {
   Check,
   X,
   Droplets,
+  Eye,
 } from './ui/Icons'
+import ImagePreviewModal from './ui/ImagePreviewModal'
 import { useLanguage } from '../context/LanguageContext'
 import {
   getLocalizedCategory,
@@ -79,6 +81,7 @@ export default function InventoryManager({
   })
   const [editingId, setEditingId] = useState(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [previewProduct, setPreviewProduct] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
 
@@ -495,12 +498,16 @@ export default function InventoryManager({
                     {/* Product & Media */}
                     <TableCell>
                       <div className='flex items-center gap-3'>
-                        <div className='relative w-11 h-11 rounded-lg bg-muted border border-border flex-shrink-0 flex items-center justify-center overflow-hidden'>
+                        <div
+                          onClick={() => setPreviewProduct(p)}
+                          className='group relative w-12 h-12 rounded-xl bg-muted border border-border flex-shrink-0 flex items-center justify-center overflow-hidden cursor-zoom-in hover:border-primary hover:shadow-md transition-all'
+                          title={language === 'ur' ? 'تصویر بڑی کر کے دیکھیں' : 'Click to enlarge image preview'}
+                        >
                           {displayImage ? (
                             <img
                               src={displayImage}
                               alt={p.name}
-                              className='w-full h-full object-cover'
+                              className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-200'
                               onError={(e) => {
                                 e.target.style.display = 'none'
                               }}
@@ -508,6 +515,9 @@ export default function InventoryManager({
                           ) : (
                             <Droplets className='w-5 h-5 text-muted-foreground' />
                           )}
+                          <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity'>
+                            <Eye className='w-4 h-4 drop-shadow' />
+                          </div>
                         </div>
 
                         <div className='min-w-0'>
@@ -940,6 +950,13 @@ export default function InventoryManager({
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* High-Resolution Image Preview Lightbox */}
+      <ImagePreviewModal
+        isOpen={!!previewProduct}
+        onClose={() => setPreviewProduct(null)}
+        product={previewProduct}
+      />
     </div>
   )
 }

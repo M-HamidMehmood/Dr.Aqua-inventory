@@ -38,9 +38,12 @@ import {
   MessageSquare,
   FileText,
   Boxes,
+  Eye,
 } from './ui/Icons'
 import { useLanguage } from '../context/LanguageContext'
 import { formatCurrency } from '../utils/translations'
+import ImagePreviewModal from './ui/ImagePreviewModal'
+import WhatsAppPreviewModal from './WhatsAppPreviewModal'
 
 export default function WebOrdersManager({
   webOrders,
@@ -68,6 +71,10 @@ export default function WebOrdersManager({
   // Completion Dialog State
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false)
   const [completeOrderTarget, setCompleteOrderTarget] = useState(null)
+
+  // Preview & WhatsApp Dialog States
+  const [previewProduct, setPreviewProduct] = useState(null)
+  const [whatsAppModalData, setWhatsAppModalData] = useState(null)
 
   const showNotice = (message, type = 'info') => {
     setNotification({ message, type })
@@ -818,18 +825,36 @@ export default function WebOrdersManager({
                             {order.items.map((item, idx) => {
                               const displayName =
                                 language === 'ur' && item.urduName ? item.urduName : item.name
+                              const productForPreview = inventory?.find((p) => p.sku === item.sku || p.id === item.id) || {
+                                name: item.name,
+                                urduName: item.urduName,
+                                sku: item.sku,
+                                image: item.image,
+                                price: item.price,
+                                stock: item.stock ?? 'N/A',
+                                category: item.category || 'General',
+                              }
                               return (
                                 <tr key={idx} className='hover:bg-muted/20'>
                                   <td className='py-2 flex items-center gap-2'>
                                     {item.image && (
-                                      <img
-                                        src={item.image}
-                                        alt={item.name}
-                                        className='w-7 h-7 rounded object-cover border border-border/60 shrink-0'
-                                        onError={(e) => {
-                                          e.currentTarget.style.display = 'none'
-                                        }}
-                                      />
+                                      <div
+                                        onClick={() => setPreviewProduct(productForPreview)}
+                                        className='relative group w-9 h-9 rounded-md overflow-hidden border border-border/80 shrink-0 cursor-zoom-in bg-muted/40 hover:ring-2 hover:ring-primary/60 transition-all'
+                                        title={language === 'ur' ? 'بڑی تصویر دیکھیں' : 'Click to enlarge image'}
+                                      >
+                                        <img
+                                          src={item.image}
+                                          alt={item.name}
+                                          className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-200'
+                                          onError={(e) => {
+                                            e.currentTarget.style.display = 'none'
+                                          }}
+                                        />
+                                        <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white'>
+                                          <Eye className='w-3.5 h-3.5' />
+                                        </div>
+                                      </div>
                                     )}
                                     <div>
                                       <div className='font-medium text-foreground text-xs'>
@@ -890,15 +915,15 @@ export default function WebOrdersManager({
                 <CardFooter className='bg-muted/20 px-4 py-2.5 border-t border-border flex flex-wrap items-center justify-between gap-2.5'>
                   {/* Left: Quick Contact & Print Slip */}
                   <div className='flex items-center gap-2'>
-                    <a
-                      href={getWhatsAppLink(order)}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors cursor-pointer shadow-subtle'
+                    <Button
+                      onClick={() => setWhatsAppModalData(order)}
+                      variant='outline'
+                      size='sm'
+                      className='h-8 text-xs cursor-pointer gap-1.5 border-emerald-500/30 text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 font-semibold'
                     >
-                      <MessageSquare className='w-3.5 h-3.5' />
-                      <span>WhatsApp</span>
-                    </a>
+                      <MessageSquare className='w-3.5 h-3.5 text-emerald-600' />
+                      <span>{language === 'ur' ? 'واٹس ایپ میسج' : 'WhatsApp'}</span>
+                    </Button>
 
                     <Button
                       onClick={() => handlePrintDeliverySlip(order)}
@@ -1098,6 +1123,25 @@ export default function WebOrdersManager({
           </div>
         )}
       </Dialog>
+
+      {/* High-Resolution Product Preview Modal */}
+      <ImagePreviewModal
+        isOpen={!!previewProduct}
+        onClose={() => setPreviewProduct(null)}
+        product={previewProduct}
+      />
+
+      {/* Interactive Urdu/English WhatsApp Preview Modal */}
+      {whatsAppModalData && (
+        <WhatsAppPreviewModal
+          isOpen={!!whatsAppModalData}
+          onClose={() => setWhatsAppModalData(null)}
+          recipientName={whatsAppModalData.customerName}
+          recipientPhone={whatsAppModalData.customerPhone}
+          contextType='order'
+          contextData={whatsAppModalData}
+        />
+      )}
     </div>
   )
 }

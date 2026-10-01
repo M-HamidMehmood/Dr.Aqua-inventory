@@ -29,12 +29,20 @@ import {
 } from './ui/Icons'
 import { useLanguage } from '../context/LanguageContext'
 import { formatCurrency } from '../utils/translations'
+import WhatsAppPreviewModal from './WhatsAppPreviewModal'
 
 export default function CustomerManager({ customers, updateCustomers }) {
   const { t, language, isRTL } = useLanguage()
 
   const [customer, setCustomer] = useState({ name: '', contact: '' })
   const [reminders, setReminders] = useState([])
+  const [whatsAppModal, setWhatsAppModal] = useState({
+    isOpen: false,
+    recipientName: '',
+    recipientPhone: '',
+    defaultTemplate: '1-month',
+    contextData: {},
+  })
 
   const addCustomer = (e) => {
     if (e) e.preventDefault()
@@ -181,15 +189,23 @@ export default function CustomerManager({ customers, updateCustomers }) {
                     </div>
                   </div>
 
-                  <a
-                    href={getWhatsAppLink(r.customer, r.type)}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors flex-shrink-0 cursor-pointer'
+                  <Button
+                    onClick={() =>
+                      setWhatsAppModal({
+                        isOpen: true,
+                        recipientName: r.customerName,
+                        recipientPhone: r.contact,
+                        defaultTemplate: r.type,
+                        contextData: { reminderType: r.type, days: r.days },
+                      })
+                    }
+                    variant='outline'
+                    size='sm'
+                    className='inline-flex items-center gap-1.5 px-2.5 py-1.5 h-8 rounded-md border-emerald-500/30 text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-xs font-semibold flex-shrink-0 cursor-pointer'
                   >
-                    <MessageSquare className='w-3 h-3' />
+                    <MessageSquare className='w-3.5 h-3.5 text-emerald-600' />
                     <span>WhatsApp</span>
-                  </a>
+                  </Button>
                 </div>
               ))}
             </div>
@@ -324,15 +340,36 @@ export default function CustomerManager({ customers, updateCustomers }) {
                   </TableCell>
 
                   <TableCell className={isRTL ? 'text-left' : 'text-right'}>
-                    <Button
-                      variant='ghost'
-                      size='sm'
-                      onClick={() => deleteCustomer(c.id)}
-                      className='text-muted-foreground hover:text-destructive h-8 px-2 cursor-pointer'
-                      title={t('deleteAction')}
-                    >
-                      <Trash2 className='w-3.5 h-3.5' />
-                    </Button>
+                    <div className={`flex items-center ${isRTL ? 'justify-start' : 'justify-end'} gap-1.5`}>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        onClick={() =>
+                          setWhatsAppModal({
+                            isOpen: true,
+                            recipientName: c.name,
+                            recipientPhone: c.contact,
+                            defaultTemplate: 'routine',
+                            contextData: { customer: c },
+                          })
+                        }
+                        className='h-8 px-2.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 cursor-pointer gap-1'
+                        title={language === 'ur' ? 'واٹس ایپ میسج بھیجیں' : 'Send WhatsApp Message'}
+                      >
+                        <MessageSquare className='w-3.5 h-3.5 text-emerald-600' />
+                        <span className='hidden sm:inline'>WhatsApp</span>
+                      </Button>
+
+                      <Button
+                        variant='ghost'
+                        size='sm'
+                        onClick={() => deleteCustomer(c.id)}
+                        className='text-muted-foreground hover:text-destructive h-8 px-2 cursor-pointer'
+                        title={t('deleteAction')}
+                      >
+                        <Trash2 className='w-3.5 h-3.5' />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -350,6 +387,17 @@ export default function CustomerManager({ customers, updateCustomers }) {
           </Table>
         </CardContent>
       </Card>
+
+      {/* 1-Click WhatsApp Preview & Template Dispatcher */}
+      <WhatsAppPreviewModal
+        isOpen={whatsAppModal.isOpen}
+        onClose={() => setWhatsAppModal((prev) => ({ ...prev, isOpen: false }))}
+        recipientName={whatsAppModal.recipientName}
+        recipientPhone={whatsAppModal.recipientPhone}
+        contextType='customer'
+        defaultTemplate={whatsAppModal.defaultTemplate}
+        contextData={whatsAppModal.contextData}
+      />
     </div>
   )
 }
