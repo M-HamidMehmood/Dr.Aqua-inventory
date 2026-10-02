@@ -555,16 +555,16 @@ export default function WebOrdersManager({
     }
   }
 
-  // Status Badge Component
+  // Compact Status Badge Component
   const renderStatusBadge = (status) => {
     switch (status) {
       case 'Pending':
         return (
           <Badge
             variant='warning'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
+            className='text-[10.5px] gap-1 py-0.5 px-2 rounded-full font-medium whitespace-nowrap shadow-subtle inline-flex items-center'
           >
-            <Clock className='w-3.5 h-3.5 shrink-0' />
+            <Clock className='w-3 h-3 shrink-0' />
             <span>{t('pendingOrders')}</span>
           </Badge>
         )
@@ -572,9 +572,9 @@ export default function WebOrdersManager({
         return (
           <Badge
             variant='info'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
+            className='text-[10.5px] gap-1 py-0.5 px-2 rounded-full font-medium whitespace-nowrap shadow-subtle inline-flex items-center'
           >
-            <Truck className='w-3.5 h-3.5 shrink-0' />
+            <Truck className='w-3 h-3 shrink-0' />
             <span>{t('dispatchedOrders')}</span>
           </Badge>
         )
@@ -582,9 +582,9 @@ export default function WebOrdersManager({
         return (
           <Badge
             variant='success'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
+            className='text-[10.5px] gap-1 py-0.5 px-2 rounded-full font-medium whitespace-nowrap shadow-subtle inline-flex items-center'
           >
-            <CheckCircle2 className='w-3.5 h-3.5 shrink-0' />
+            <CheckCircle2 className='w-3 h-3 shrink-0' />
             <span>{t('completedOrders')}</span>
           </Badge>
         )
@@ -592,23 +592,23 @@ export default function WebOrdersManager({
         return (
           <Badge
             variant='destructive'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
+            className='text-[10.5px] gap-1 py-0.5 px-2 rounded-full font-medium whitespace-nowrap shadow-subtle inline-flex items-center'
           >
-            <X className='w-3.5 h-3.5 shrink-0' />
+            <X className='w-3 h-3 shrink-0' />
             <span>{t('cancelledOrders')}</span>
           </Badge>
         )
       default:
-        return <Badge variant='secondary'>{status}</Badge>
+        return <Badge variant='secondary' className='text-[10.5px] py-0.5 px-2'>{status}</Badge>
     }
   }
 
   return (
-    <div className='space-y-5'>
+    <div className='space-y-3.5'>
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`p-3.5 rounded-lg text-xs font-medium flex items-center justify-between shadow-elevated border animate-in fade-in slide-in-from-top-2 duration-200 ${
+          className={`p-3 rounded-lg text-xs font-medium flex items-center justify-between shadow-elevated border animate-in fade-in slide-in-from-top-2 duration-200 ${
             notification.type === 'error'
               ? 'bg-destructive/10 text-destructive border-destructive/20'
               : notification.type === 'success'
@@ -636,15 +636,15 @@ export default function WebOrdersManager({
       )}
 
       {/* Top Header & Storefront Status */}
-      <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-3'>
+      <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-2.5'>
         <div>
-          <h2 className='text-xl sm:text-2xl font-bold tracking-tight text-foreground flex items-center gap-2.5'>
-            <div className='w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shadow-subtle shrink-0'>
-              <ShoppingBag className='w-4 h-4' />
+          <h2 className='text-lg sm:text-xl font-bold tracking-tight text-foreground flex items-center gap-2'>
+            <div className='w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary shadow-subtle shrink-0'>
+              <ShoppingBag className='w-3.5 h-3.5' />
             </div>
             <span>{t('webOrdersTitle')}</span>
           </h2>
-          <p className='text-xs sm:text-sm text-muted-foreground mt-0.5'>
+          <p className='text-xs text-muted-foreground mt-0.5'>
             {t('webOrdersDesc')}
           </p>
         </div>
@@ -652,36 +652,36 @@ export default function WebOrdersManager({
         <div className='flex items-center gap-2 self-start sm:self-auto'>
           <Badge
             variant='outline'
-            className='px-3 py-1 text-xs font-mono gap-1.5 bg-background shadow-subtle shrink-0'
+            className='px-2.5 py-0.5 text-[11px] font-mono gap-1.5 bg-background shadow-subtle shrink-0'
           >
-            <span className='w-2 h-2 rounded-full bg-emerald-500 animate-pulse' />
+            <span className='w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse' />
             <span>dr-aqua-project.vercel.app</span>
           </Badge>
         </div>
       </div>
 
-      {/* KPI Summary Cards */}
-      <div className='grid grid-cols-2 sm:grid-cols-4 gap-3'>
+      {/* KPI Summary Cards (Compact Height) */}
+      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2.5'>
         <Card
           onClick={() => {
             setActiveFilter('All')
             setCurrentPage(1)
           }}
-          className={`p-3.5 cursor-pointer transition-all border ${
+          className={`p-2.5 cursor-pointer transition-all border ${
             activeFilter === 'All'
               ? 'ring-2 ring-primary border-primary shadow-elevated bg-primary/5'
               : 'border-border shadow-subtle hover:border-primary/40'
           }`}
         >
           <div className='flex items-center justify-between'>
-            <span className='text-xs font-medium text-muted-foreground'>{t('allOrders')}</span>
-            <ShoppingBag className='w-4 h-4 text-muted-foreground' />
+            <span className='text-[11px] font-medium text-muted-foreground'>{t('allOrders')}</span>
+            <ShoppingBag className='w-3.5 h-3.5 text-muted-foreground' />
           </div>
-          <div className='mt-2 flex items-baseline gap-2'>
-            <span className='text-2xl font-bold font-mono text-foreground'>
+          <div className='mt-1 flex items-baseline gap-1.5'>
+            <span className='text-xl font-bold font-mono text-foreground'>
               {webOrders.length}
             </span>
-            <span className='text-[11px] text-muted-foreground'>{t('orders')}</span>
+            <span className='text-[10px] text-muted-foreground'>{t('orders')}</span>
           </div>
         </Card>
 
@@ -690,24 +690,24 @@ export default function WebOrdersManager({
             setActiveFilter('Pending')
             setCurrentPage(1)
           }}
-          className={`p-3.5 cursor-pointer transition-all border ${
+          className={`p-2.5 cursor-pointer transition-all border ${
             activeFilter === 'Pending'
               ? 'ring-2 ring-amber-500 border-amber-500 shadow-elevated bg-amber-500/10'
               : 'border-amber-500/20 bg-amber-500/5 shadow-subtle hover:border-amber-500/40'
           }`}
         >
           <div className='flex items-center justify-between'>
-            <span className='text-xs font-medium text-amber-700 dark:text-amber-400'>
+            <span className='text-[11px] font-medium text-amber-700 dark:text-amber-400'>
               {t('pendingOrders')}
             </span>
-            <Clock className='w-4 h-4 text-amber-500' />
+            <Clock className='w-3.5 h-3.5 text-amber-500' />
           </div>
-          <div className='mt-2 flex items-baseline gap-2'>
-            <span className='text-2xl font-bold font-mono text-amber-600 dark:text-amber-400'>
+          <div className='mt-1 flex items-baseline gap-1.5'>
+            <span className='text-xl font-bold font-mono text-amber-600 dark:text-amber-400'>
               {pendingCount}
             </span>
-            <span className='text-[11px] text-amber-700/70 dark:text-amber-400/70'>
-              {language === 'ur' ? 'کارروائی کے منتظر' : 'Awaiting review'}
+            <span className='text-[10px] text-amber-700/70 dark:text-amber-400/70'>
+              {language === 'ur' ? 'منتظر' : 'Review'}
             </span>
           </div>
         </Card>
@@ -717,24 +717,24 @@ export default function WebOrdersManager({
             setActiveFilter('Dispatched')
             setCurrentPage(1)
           }}
-          className={`p-3.5 cursor-pointer transition-all border ${
+          className={`p-2.5 cursor-pointer transition-all border ${
             activeFilter === 'Dispatched'
               ? 'ring-2 ring-blue-500 border-blue-500 shadow-elevated bg-blue-500/10'
               : 'border-blue-500/20 bg-blue-500/5 shadow-subtle hover:border-blue-500/40'
           }`}
         >
           <div className='flex items-center justify-between'>
-            <span className='text-xs font-medium text-blue-700 dark:text-blue-400'>
+            <span className='text-[11px] font-medium text-blue-700 dark:text-blue-400'>
               {t('dispatchedOrders')}
             </span>
-            <Truck className='w-4 h-4 text-blue-500' />
+            <Truck className='w-3.5 h-3.5 text-blue-500' />
           </div>
-          <div className='mt-2 flex items-baseline gap-2'>
-            <span className='text-2xl font-bold font-mono text-blue-600 dark:text-blue-400'>
+          <div className='mt-1 flex items-baseline gap-1.5'>
+            <span className='text-xl font-bold font-mono text-blue-600 dark:text-blue-400'>
               {dispatchedCount}
             </span>
-            <span className='text-[11px] text-blue-700/70 dark:text-blue-400/70'>
-              {language === 'ur' ? 'راستے میں ہے' : 'In transit'}
+            <span className='text-[10px] text-blue-700/70 dark:text-blue-400/70'>
+              {language === 'ur' ? 'راستے میں' : 'Transit'}
             </span>
           </div>
         </Card>
@@ -744,31 +744,31 @@ export default function WebOrdersManager({
             setActiveFilter('Completed')
             setCurrentPage(1)
           }}
-          className={`p-3.5 cursor-pointer transition-all border ${
+          className={`p-2.5 cursor-pointer transition-all border ${
             activeFilter === 'Completed'
               ? 'ring-2 ring-emerald-500 border-emerald-500 shadow-elevated bg-emerald-500/10'
               : 'border-emerald-500/20 bg-emerald-500/5 shadow-subtle hover:border-emerald-500/40'
           }`}
         >
           <div className='flex items-center justify-between'>
-            <span className='text-xs font-medium text-emerald-700 dark:text-emerald-400'>
+            <span className='text-[11px] font-medium text-emerald-700 dark:text-emerald-400'>
               {t('completedOrders')}
             </span>
-            <CheckCircle2 className='w-4 h-4 text-emerald-500' />
+            <CheckCircle2 className='w-3.5 h-3.5 text-emerald-500' />
           </div>
-          <div className='mt-2 flex items-baseline gap-2'>
-            <span className='text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400'>
+          <div className='mt-1 flex items-baseline gap-1.5'>
+            <span className='text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400'>
               {completedCount}
             </span>
-            <span className='text-[11px] text-emerald-700/70 dark:text-emerald-400/70'>
-              {language === 'ur' ? 'کامیاب وصولی' : 'Delivered & paid'}
+            <span className='text-[10px] text-emerald-700/70 dark:text-emerald-400/70'>
+              {language === 'ur' ? 'مکمل' : 'Settled'}
             </span>
           </div>
         </Card>
       </div>
 
-      {/* Main Control Toolbar: Status Pills, City, Sort, Search, and View Mode Switcher */}
-      <Card className='p-3 sm:p-4 border-border shadow-subtle bg-card/70 backdrop-blur-sm'>
+      {/* Main Control Toolbar (Compact) */}
+      <Card className='p-2 sm:p-2.5 border-border shadow-subtle bg-card/70 backdrop-blur-sm'>
         <div className='flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3'>
           {/* Status Tabs */}
           <div className='flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0'>
@@ -931,22 +931,22 @@ export default function WebOrdersManager({
         /* ================== STREAMLINED 5-COLUMN HIGH-EFFICIENCY TABLE ================== */
         <Card className='overflow-hidden border-border shadow-subtle bg-card'>
           <div className='w-full overflow-x-auto'>
-            <table className='w-full text-left border-collapse min-w-[1020px] text-xs'>
+            <table className='w-full text-left border-collapse min-w-[960px] text-xs'>
               <thead>
-                <tr className='border-b border-border bg-muted/40 font-semibold text-muted-foreground uppercase tracking-wider text-[11px]'>
-                  <th className='py-3.5 px-4 w-[240px] whitespace-nowrap'>
+                <tr className='border-b border-border bg-muted/40 font-semibold text-muted-foreground uppercase tracking-wider text-[10.5px]'>
+                  <th className='py-2 px-3 w-[180px] whitespace-nowrap'>
                     {t('orderId')} &amp; {t('orderedItems')}
                   </th>
-                  <th className='py-3.5 px-4 min-w-[260px]'>
+                  <th className='py-2 px-3 min-w-[200px]'>
                     {t('customerAndPhone')}
                   </th>
-                  <th className='py-3.5 px-4 w-[200px] whitespace-nowrap'>
+                  <th className='py-2 px-3 w-[180px] whitespace-nowrap'>
                     {t('grandTotal')} &amp; {t('paymentMethod')}
                   </th>
-                  <th className='py-3.5 px-4 w-[170px] whitespace-nowrap'>
+                  <th className='py-2 px-3 w-[150px] whitespace-nowrap'>
                     {t('orderStatus')}
                   </th>
-                  <th className='py-3.5 px-4 w-[240px] text-right whitespace-nowrap'>
+                  <th className='py-2 px-3 w-[220px] text-right whitespace-nowrap'>
                     {t('actions')}
                   </th>
                 </tr>
@@ -960,120 +960,99 @@ export default function WebOrdersManager({
                   const isCopied = copiedOrderId === order.id
                   const isPaid = order.paymentStatus === 'Paid'
 
-                  const firstItemName =
-                    language === 'ur' && order.items[0]?.urduName
-                      ? order.items[0].urduName
-                      : order.items[0]?.name
-
                   return (
                     <tr
                       key={order.id}
                       className='hover:bg-muted/30 transition-colors group'
                     >
-                      {/* 1. Order ID, Creation Date, and Ordered Items Chip */}
-                      <td className='py-3.5 px-4 align-top whitespace-nowrap'>
+                      {/* 1. Concise Order ID & Items */}
+                      <td className='py-2 px-3 align-middle whitespace-nowrap'>
                         <div className='flex items-center gap-1.5 whitespace-nowrap'>
                           <span
                             onClick={() => setDetailModalOrder(order)}
-                            className='font-mono font-bold text-sm text-primary hover:underline cursor-pointer tracking-tight whitespace-nowrap'
+                            className='font-mono font-bold text-xs text-primary hover:underline cursor-pointer tracking-tight whitespace-nowrap'
                             dir='ltr'
                           >
                             {order.id}
                           </span>
                           <button
                             onClick={() => handleCopyText(order.id, 'orderId')}
-                            className='p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground cursor-pointer transition-colors shrink-0'
+                            className='p-0.5 hover:bg-muted rounded text-muted-foreground hover:text-foreground cursor-pointer transition-colors shrink-0'
                             title={t('copyOrderId')}
                           >
                             {isCopied ? (
-                              <Check className='w-3.5 h-3.5 text-emerald-600' />
+                              <Check className='w-3 h-3 text-emerald-600' />
                             ) : (
-                              <Copy className='w-3.5 h-3.5' />
+                              <Copy className='w-3 h-3' />
                             )}
                           </button>
                         </div>
-                        <div className='text-xs text-muted-foreground mt-0.5 whitespace-nowrap font-sans'>
-                          {new Date(order.createdAt).toLocaleDateString([], {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                          })}{' '}
-                          •{' '}
-                          {new Date(order.createdAt).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </div>
-                        {/* Compact items chip & quick detail trigger */}
-                        <div
-                          onClick={() => setDetailModalOrder(order)}
-                          className='mt-2 flex items-center gap-1.5 cursor-pointer group/item w-fit'
-                          title={language === 'ur' ? 'مکمل تفصیلات دیکھیں' : 'Click to inspect full order breakdown'}
-                        >
-                          <span className='inline-flex items-center text-[10px] font-semibold px-1.5 py-0.5 bg-muted/80 rounded font-mono text-muted-foreground group-hover/item:text-primary group-hover/item:bg-primary/10 transition-colors whitespace-nowrap'>
+                        <div className='text-[10.5px] text-muted-foreground whitespace-nowrap font-sans flex items-center gap-1.5 mt-0.5'>
+                          <span>
+                            {new Date(order.createdAt).toLocaleDateString([], {
+                              month: 'short',
+                              day: 'numeric',
+                            })}{' '}
+                            {new Date(order.createdAt).toLocaleTimeString([], {
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            })}
+                          </span>
+                          <span>•</span>
+                          <span
+                            onClick={() => setDetailModalOrder(order)}
+                            className='font-mono font-semibold text-foreground/80 hover:text-primary cursor-pointer'
+                            title='View items breakdown'
+                          >
                             {order.items.length} {t('itemsCount')}
                           </span>
-                          <span
-                            className='text-xs text-foreground/80 group-hover/item:text-primary transition-colors truncate max-w-[170px]'
-                            title={firstItemName}
-                          >
-                            {firstItemName}
-                            {order.items.length > 1 && ' +more'}
-                          </span>
                         </div>
                       </td>
 
-                      {/* 2. Customer Name, Phone, City, and Delivery Address */}
-                      <td className='py-3.5 px-4 align-top'>
-                        <div className='font-bold text-foreground text-sm whitespace-nowrap truncate max-w-[250px]'>
-                          {order.customerName}
-                        </div>
-                        <div
-                          className='text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5 font-mono whitespace-nowrap'
-                          dir='ltr'
-                        >
-                          <Phone className='w-3.5 h-3.5 text-muted-foreground shrink-0' />
-                          <span>{order.customerPhone}</span>
-                        </div>
-                        <div className='text-xs text-muted-foreground flex items-center gap-1.5 mt-1.5'>
-                          <span className='inline-block text-[10px] font-semibold px-2 py-0.5 bg-primary/10 text-primary rounded whitespace-nowrap shrink-0'>
+                      {/* 2. Customer Name, City Pill & Phone (Address Removed for Compact Height) */}
+                      <td className='py-2 px-3 align-middle'>
+                        <div className='flex items-center gap-1.5 whitespace-nowrap'>
+                          <span className='font-bold text-foreground text-xs truncate max-w-[150px]'>
+                            {order.customerName}
+                          </span>
+                          <span className='inline-block text-[9.5px] font-semibold px-1.5 py-0.2 bg-primary/10 text-primary rounded whitespace-nowrap shrink-0'>
                             {order.city}
                           </span>
-                          <span
-                            className='truncate max-w-[200px]'
-                            title={order.deliveryAddress}
-                          >
-                            {order.deliveryAddress}
-                          </span>
+                        </div>
+                        <div
+                          className='text-[10.5px] text-muted-foreground flex items-center gap-1 mt-0.5 font-mono whitespace-nowrap'
+                          dir='ltr'
+                        >
+                          <Phone className='w-3 h-3 text-muted-foreground shrink-0' />
+                          <span>{order.customerPhone}</span>
                         </div>
                       </td>
 
-                      {/* 3. Grand Total, Subtotal, and Payment Method Pill */}
-                      <td className='py-3.5 px-4 align-top whitespace-nowrap font-mono'>
-                        <div className='font-bold text-foreground text-base whitespace-nowrap'>
+                      {/* 3. Grand Total & Compact Payment Pill */}
+                      <td className='py-2 px-3 align-middle whitespace-nowrap font-mono'>
+                        <div className='font-bold text-foreground text-xs whitespace-nowrap'>
                           {formatCurrency(order.total, language)}
                         </div>
-                        {/* Merged Payment Badge Row */}
-                        <div className='mt-1.5 flex items-center gap-1.5 whitespace-nowrap font-sans'>
-                          <div className='inline-flex items-center gap-1 px-2 py-0.5 rounded bg-muted/60 border border-border/80 text-[11px] font-medium text-foreground whitespace-nowrap shadow-subtle'>
+                        <div className='mt-0.5 flex items-center gap-1 whitespace-nowrap font-sans'>
+                          <span className='inline-flex items-center gap-1 px-1.5 py-0.2 rounded bg-muted/60 border border-border/80 text-[10px] font-medium text-foreground whitespace-nowrap shadow-subtle'>
                             {order.paymentMethod === 'Cash' && (
-                              <Wallet className='w-3 h-3 text-emerald-600 shrink-0' />
+                              <Wallet className='w-2.5 h-2.5 text-emerald-600 shrink-0' />
                             )}
                             {(order.paymentMethod === 'JazzCash' ||
                               order.paymentMethod === 'EasyPaisa') && (
-                              <CreditCard className='w-3 h-3 text-amber-600 shrink-0' />
+                              <CreditCard className='w-2.5 h-2.5 text-amber-600 shrink-0' />
                             )}
                             {order.paymentMethod === 'Bank Transfer' && (
-                              <Landmark className='w-3 h-3 text-blue-600 shrink-0' />
+                              <Landmark className='w-2.5 h-2.5 text-blue-600 shrink-0' />
                             )}
                             <span>
                               {order.paymentMethod === 'Cash'
                                 ? t('payCash')
                                 : order.paymentMethod}
                             </span>
-                          </div>
+                          </span>
                           <span
-                            className={`text-[10px] font-semibold px-1.5 py-0.5 rounded whitespace-nowrap ${
+                            className={`text-[9.5px] font-semibold px-1.5 py-0.2 rounded whitespace-nowrap ${
                               isPaid
                                 ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
                                 : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
@@ -1082,44 +1061,31 @@ export default function WebOrdersManager({
                             {isPaid ? t('paid') : 'COD'}
                           </span>
                         </div>
-                        <div className='text-[10px] text-muted-foreground font-mono mt-1 whitespace-nowrap'>
-                          {order.deliveryFee > 0
-                            ? `+ Ship: ${formatCurrency(order.deliveryFee, language)}`
-                            : 'Free Delivery'}
-                        </div>
                       </td>
 
-                      {/* 4. Status Badge, Courier Partner, and Tracking Number */}
-                      <td className='py-3.5 px-4 align-top whitespace-nowrap'>
+                      {/* 4. Compact Status Badge & Courier */}
+                      <td className='py-2 px-3 align-middle whitespace-nowrap'>
                         {renderStatusBadge(order.status)}
                         {order.courierName && (
-                          <div className='mt-1.5 text-xs text-blue-700 dark:text-blue-400 font-medium flex items-center gap-1 whitespace-nowrap'>
-                            <Truck className='w-3.5 h-3.5 shrink-0' />
-                            <span className='truncate max-w-[130px]'>{order.courierName}</span>
-                          </div>
-                        )}
-                        {order.trackingNumber && (
-                          <div
-                            className='text-[11px] text-muted-foreground font-mono whitespace-nowrap mt-0.5'
-                            dir='ltr'
-                          >
-                            #{order.trackingNumber}
+                          <div className='mt-0.5 text-[10px] text-blue-700 dark:text-blue-400 font-medium flex items-center gap-1 whitespace-nowrap'>
+                            <Truck className='w-3 h-3 shrink-0' />
+                            <span className='truncate max-w-[110px]'>{order.courierName}</span>
                           </div>
                         )}
                       </td>
 
-                      {/* 5. Actions: Quick Dispatch / Settle + View, WhatsApp, Print Slip, Cancel */}
-                      <td className='py-3.5 px-4 align-top text-right whitespace-nowrap'>
-                        <div className='flex items-center justify-end gap-1.5 shrink-0 whitespace-nowrap'>
+                      {/* 5. Compact Actions */}
+                      <td className='py-2 px-3 align-middle text-right whitespace-nowrap'>
+                        <div className='flex items-center justify-end gap-1 shrink-0 whitespace-nowrap'>
                           {/* Quick Stage Progression Primary Button */}
                           {isPending && (
                             <Button
                               onClick={() => handleOpenDispatch(order)}
                               size='sm'
-                              className='h-8 px-3 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1.5 shrink-0 whitespace-nowrap shadow-subtle'
+                              className='h-7 px-2.5 text-[11px] font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1 shrink-0 whitespace-nowrap shadow-subtle'
                               title={t('markDispatched')}
                             >
-                              <Truck className='w-3.5 h-3.5 shrink-0' />
+                              <Truck className='w-3 h-3 shrink-0' />
                               <span>{t('quickDispatch')}</span>
                             </Button>
                           )}
@@ -1128,10 +1094,10 @@ export default function WebOrdersManager({
                             <Button
                               onClick={() => handleOpenComplete(order)}
                               size='sm'
-                              className='h-8 px-3 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1.5 shrink-0 whitespace-nowrap shadow-subtle'
+                              className='h-7 px-2.5 text-[11px] font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1 shrink-0 whitespace-nowrap shadow-subtle'
                               title={t('markCompleted')}
                             >
-                              <CheckCircle2 className='w-3.5 h-3.5 shrink-0' />
+                              <CheckCircle2 className='w-3 h-3 shrink-0' />
                               <span>{t('quickSettle')}</span>
                             </Button>
                           )}
@@ -1139,38 +1105,38 @@ export default function WebOrdersManager({
                           {/* View Details Modal Trigger */}
                           <button
                             onClick={() => setDetailModalOrder(order)}
-                            className='h-8 w-8 rounded-lg border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
+                            className='h-7 w-7 rounded-md border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
                             title={t('viewOrder')}
                           >
-                            <Eye className='w-4 h-4 shrink-0' />
+                            <Eye className='w-3.5 h-3.5 shrink-0' />
                           </button>
 
                           {/* WhatsApp Chat Preview */}
                           <button
                             onClick={() => setWhatsAppModalData(order)}
-                            className='h-8 w-8 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
+                            className='h-7 w-7 rounded-md border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
                             title='WhatsApp'
                           >
-                            <MessageSquare className='w-4 h-4 shrink-0' />
+                            <MessageSquare className='w-3.5 h-3.5 shrink-0' />
                           </button>
 
                           {/* Print Delivery Packing Slip */}
                           <button
                             onClick={() => handlePrintDeliverySlip(order)}
-                            className='h-8 w-8 rounded-lg border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
+                            className='h-7 w-7 rounded-md border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
                             title={t('printSlip')}
                           >
-                            <Printer className='w-4 h-4 shrink-0' />
+                            <Printer className='w-3.5 h-3.5 shrink-0' />
                           </button>
 
                           {/* Cancel Order */}
                           {!isCompleted && !isCancelled && (
                             <button
                               onClick={() => handleCancelOrder(order)}
-                              className='h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 flex items-center justify-center shrink-0 cursor-pointer transition-colors'
+                              className='h-7 w-7 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 flex items-center justify-center shrink-0 cursor-pointer transition-colors'
                               title={t('cancelOrder')}
                             >
-                              <X className='w-4 h-4 shrink-0' />
+                              <X className='w-3.5 h-3.5 shrink-0' />
                             </button>
                           )}
                         </div>
