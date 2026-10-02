@@ -515,5 +515,66 @@ export function RefreshCw(props) {
   )
 }
 
+export function List(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <line x1="8" x2="21" y1="6" y2="6" />
+      <line x1="8" x2="21" y1="12" y2="12" />
+      <line x1="8" x2="21" y1="18" y2="18" />
+      <line x1="3" x2="3.01" y1="6" y2="6" />
+      <line x1="3" x2="3.01" y1="12" y2="12" />
+      <line x1="3" x2="3.01" y1="18" y2="18" />
+    </svg>
+  )
+}
+
+export function LayoutGrid(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect width="7" height="7" x="3" y="3" rx="1" />
+      <rect width="7" height="7" x="14" y="3" rx="1" />
+      <rect width="7" height="7" x="14" y="14" rx="1" />
+      <rect width="7" height="7" x="3" y="14" rx="1" />
+    </svg>
+  )
+}
+
+export function ChevronsLeft(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="m11 17-5-5 5-5" />
+      <path d="m18 17-5-5 5-5" />
+    </svg>
+  )
+}
+
+export function ChevronsRight(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="m6 17 5-5-5-5" />
+      <path d="m13 17 5-5-5-5" />
+    </svg>
+  )
+}
+
+export function ArrowUpDown(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="m21 16-4 4-4-4" />
+      <path d="M17 20V4" />
+      <path d="m3 8 4-4 4 4" />
+      <path d="M7 4v16" />
+    </svg>
+  )
+}
+
+export function Filter(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+    </svg>
+  )
+}
+
 
 
