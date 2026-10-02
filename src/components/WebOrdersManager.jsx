@@ -562,7 +562,7 @@ export default function WebOrdersManager({
         return (
           <Badge
             variant='warning'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
           >
             <Clock className='w-3.5 h-3.5 shrink-0' />
             <span>{t('pendingOrders')}</span>
@@ -572,7 +572,7 @@ export default function WebOrdersManager({
         return (
           <Badge
             variant='info'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
           >
             <Truck className='w-3.5 h-3.5 shrink-0' />
             <span>{t('dispatchedOrders')}</span>
@@ -582,7 +582,7 @@ export default function WebOrdersManager({
         return (
           <Badge
             variant='success'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
           >
             <CheckCircle2 className='w-3.5 h-3.5 shrink-0' />
             <span>{t('completedOrders')}</span>
@@ -592,7 +592,7 @@ export default function WebOrdersManager({
         return (
           <Badge
             variant='destructive'
-            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle inline-flex items-center'
           >
             <X className='w-3.5 h-3.5 shrink-0' />
             <span>{t('cancelledOrders')}</span>
@@ -601,54 +601,6 @@ export default function WebOrdersManager({
       default:
         return <Badge variant='secondary'>{status}</Badge>
     }
-  }
-
-  // Payment Method Pill Component
-  const renderPaymentBadge = (order) => {
-    const isPaid = order.paymentStatus === 'Paid'
-    return (
-      <div className='flex flex-col gap-1 items-start whitespace-nowrap'>
-        <div className='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-muted/60 border border-border/80 text-xs font-medium text-foreground whitespace-nowrap shadow-subtle'>
-          {order.paymentMethod === 'Cash' && (
-            <Wallet className='w-3.5 h-3.5 text-emerald-600 shrink-0' />
-          )}
-          {(order.paymentMethod === 'JazzCash' || order.paymentMethod === 'EasyPaisa') && (
-            <CreditCard className='w-3.5 h-3.5 text-amber-600 shrink-0' />
-          )}
-          {order.paymentMethod === 'Bank Transfer' && (
-            <Landmark className='w-3.5 h-3.5 text-blue-600 shrink-0' />
-          )}
-          <span className='whitespace-nowrap'>
-            {order.paymentMethod === 'Cash'
-              ? t('payCash')
-              : order.paymentMethod === 'JazzCash'
-              ? t('payJazzCash')
-              : order.paymentMethod === 'EasyPaisa'
-              ? t('payEasyPaisa')
-              : t('payBankTransfer')}
-          </span>
-        </div>
-        <div className='flex items-center gap-1.5 whitespace-nowrap'>
-          <span
-            className={`text-[10px] font-semibold px-2 py-0.5 rounded whitespace-nowrap ${
-              isPaid
-                ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
-                : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
-            }`}
-          >
-            {isPaid ? t('paid') : t('unpaidCod')}
-          </span>
-          {order.paymentReference && (
-            <span
-              className='font-mono text-[10px] text-muted-foreground whitespace-nowrap'
-              dir='ltr'
-            >
-              Ref: {order.paymentReference}
-            </span>
-          )}
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -964,7 +916,7 @@ export default function WebOrdersManager({
         </div>
       </Card>
 
-      {/* Main Content Area: Table View OR Modern Card View */}
+      {/* Main Content Area: High-Efficiency 5-Column Table OR Modern Card View */}
       {filteredAndSortedOrders.length === 0 ? (
         <Card className='p-12 text-center border-dashed border-border bg-card/40'>
           <ShoppingBag className='w-12 h-12 mx-auto text-muted-foreground/30 mb-3' />
@@ -976,31 +928,25 @@ export default function WebOrdersManager({
           </p>
         </Card>
       ) : viewMode === 'table' ? (
-        /* ================== TABLE VIEW (HIGH-DENSITY ENTERPRISE TABLE) ================== */
+        /* ================== STREAMLINED 5-COLUMN HIGH-EFFICIENCY TABLE ================== */
         <Card className='overflow-hidden border-border shadow-subtle bg-card'>
           <div className='w-full overflow-x-auto'>
-            <table className='w-full text-left border-collapse min-w-[1340px] text-xs'>
+            <table className='w-full text-left border-collapse min-w-[1020px] text-xs'>
               <thead>
                 <tr className='border-b border-border bg-muted/40 font-semibold text-muted-foreground uppercase tracking-wider text-[11px]'>
-                  <th className='py-3.5 px-4 w-[170px] min-w-[170px] whitespace-nowrap'>
-                    {t('orderId')}
+                  <th className='py-3.5 px-4 w-[240px] whitespace-nowrap'>
+                    {t('orderId')} &amp; {t('orderedItems')}
                   </th>
-                  <th className='py-3.5 px-4 w-[260px] min-w-[260px]'>
+                  <th className='py-3.5 px-4 min-w-[260px]'>
                     {t('customerAndPhone')}
                   </th>
-                  <th className='py-3.5 px-4 w-[250px] min-w-[250px]'>
-                    {t('orderedItems')}
+                  <th className='py-3.5 px-4 w-[200px] whitespace-nowrap'>
+                    {t('grandTotal')} &amp; {t('paymentMethod')}
                   </th>
-                  <th className='py-3.5 px-4 w-[180px] min-w-[180px] whitespace-nowrap'>
-                    {t('paymentMethod')}
-                  </th>
-                  <th className='py-3.5 px-4 w-[160px] min-w-[160px] text-right whitespace-nowrap'>
-                    {t('grandTotal')}
-                  </th>
-                  <th className='py-3.5 px-4 w-[160px] min-w-[160px] whitespace-nowrap'>
+                  <th className='py-3.5 px-4 w-[170px] whitespace-nowrap'>
                     {t('orderStatus')}
                   </th>
-                  <th className='py-3.5 px-4 w-[240px] min-w-[240px] text-right whitespace-nowrap'>
+                  <th className='py-3.5 px-4 w-[240px] text-right whitespace-nowrap'>
                     {t('actions')}
                   </th>
                 </tr>
@@ -1012,14 +958,20 @@ export default function WebOrdersManager({
                   const isCompleted = order.status === 'Completed'
                   const isCancelled = order.status === 'Cancelled'
                   const isCopied = copiedOrderId === order.id
+                  const isPaid = order.paymentStatus === 'Paid'
+
+                  const firstItemName =
+                    language === 'ur' && order.items[0]?.urduName
+                      ? order.items[0].urduName
+                      : order.items[0]?.name
 
                   return (
                     <tr
                       key={order.id}
                       className='hover:bg-muted/30 transition-colors group'
                     >
-                      {/* 1. Order ID & Time */}
-                      <td className='py-3.5 px-4 align-middle whitespace-nowrap'>
+                      {/* 1. Order ID, Creation Date, and Ordered Items Chip */}
+                      <td className='py-3.5 px-4 align-top whitespace-nowrap'>
                         <div className='flex items-center gap-1.5 whitespace-nowrap'>
                           <span
                             onClick={() => setDetailModalOrder(order)}
@@ -1052,14 +1004,28 @@ export default function WebOrdersManager({
                             minute: '2-digit',
                           })}
                         </div>
-                        <span className='inline-block text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-muted/60 text-muted-foreground rounded mt-1 whitespace-nowrap'>
-                          {t('channelOnline')}
-                        </span>
+                        {/* Compact items chip & quick detail trigger */}
+                        <div
+                          onClick={() => setDetailModalOrder(order)}
+                          className='mt-2 flex items-center gap-1.5 cursor-pointer group/item w-fit'
+                          title={language === 'ur' ? 'مکمل تفصیلات دیکھیں' : 'Click to inspect full order breakdown'}
+                        >
+                          <span className='inline-flex items-center text-[10px] font-semibold px-1.5 py-0.5 bg-muted/80 rounded font-mono text-muted-foreground group-hover/item:text-primary group-hover/item:bg-primary/10 transition-colors whitespace-nowrap'>
+                            {order.items.length} {t('itemsCount')}
+                          </span>
+                          <span
+                            className='text-xs text-foreground/80 group-hover/item:text-primary transition-colors truncate max-w-[170px]'
+                            title={firstItemName}
+                          >
+                            {firstItemName}
+                            {order.items.length > 1 && ' +more'}
+                          </span>
+                        </div>
                       </td>
 
-                      {/* 2. Customer & Delivery */}
-                      <td className='py-3.5 px-4 align-middle'>
-                        <div className='font-bold text-foreground text-sm whitespace-nowrap truncate max-w-[240px]'>
+                      {/* 2. Customer Name, Phone, City, and Delivery Address */}
+                      <td className='py-3.5 px-4 align-top'>
+                        <div className='font-bold text-foreground text-sm whitespace-nowrap truncate max-w-[250px]'>
                           {order.customerName}
                         </div>
                         <div
@@ -1069,122 +1035,65 @@ export default function WebOrdersManager({
                           <Phone className='w-3.5 h-3.5 text-muted-foreground shrink-0' />
                           <span>{order.customerPhone}</span>
                         </div>
-                        <div className='text-xs text-muted-foreground flex items-center gap-1.5 mt-1'>
-                          <MapPin className='w-3.5 h-3.5 text-primary shrink-0' />
+                        <div className='text-xs text-muted-foreground flex items-center gap-1.5 mt-1.5'>
+                          <span className='inline-block text-[10px] font-semibold px-2 py-0.5 bg-primary/10 text-primary rounded whitespace-nowrap shrink-0'>
+                            {order.city}
+                          </span>
                           <span
-                            className='truncate max-w-[170px]'
+                            className='truncate max-w-[200px]'
                             title={order.deliveryAddress}
                           >
                             {order.deliveryAddress}
                           </span>
-                          <span className='inline-block text-[10px] font-semibold px-2 py-0.5 bg-primary/10 text-primary rounded whitespace-nowrap shrink-0'>
-                            {order.city}
-                          </span>
                         </div>
                       </td>
 
-                      {/* 3. Items Ordered */}
-                      <td className='py-3.5 px-4 align-middle'>
-                        <div className='flex items-center gap-2.5'>
-                          <div className='flex -space-x-2 overflow-hidden py-0.5 shrink-0'>
-                            {order.items.slice(0, 3).map((item, idx) => {
-                              const productForPreview = inventory?.find(
-                                (p) => p.sku === item.sku || p.id === item.productId,
-                              ) || {
-                                name: item.name,
-                                urduName: item.urduName,
-                                sku: item.sku,
-                                image: item.image,
-                                price: item.price,
-                                stock: item.stock ?? 'N/A',
-                                category: item.category || 'General',
-                              }
-                              return (
-                                <div
-                                  key={idx}
-                                  onClick={() => setPreviewProduct(productForPreview)}
-                                  className='relative w-9 h-9 rounded-md overflow-hidden border-2 border-background shrink-0 cursor-zoom-in bg-muted/60 hover:scale-110 hover:z-10 transition-transform shadow-subtle'
-                                  title={`${item.name} (${item.qty}x)`}
-                                >
-                                  {item.image ? (
-                                    <img
-                                      src={item.image}
-                                      alt={item.name}
-                                      className='w-full h-full object-cover'
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none'
-                                      }}
-                                    />
-                                  ) : (
-                                    <div className='w-full h-full flex items-center justify-center bg-muted text-[10px] font-mono'>
-                                      {item.qty}x
-                                    </div>
-                                  )}
-                                </div>
-                              )
-                            })}
-                          </div>
-                          {order.items.length > 3 && (
-                            <span className='text-xs font-semibold text-muted-foreground font-mono shrink-0'>
-                              +{order.items.length - 3}
-                            </span>
-                          )}
-                        </div>
-                        <div
-                          className='mt-1 text-xs text-foreground font-medium truncate max-w-[220px]'
-                          title={
-                            language === 'ur' && order.items[0]?.urduName
-                              ? order.items[0].urduName
-                              : order.items[0]?.name
-                          }
-                        >
-                          {language === 'ur' && order.items[0]?.urduName
-                            ? order.items[0].urduName
-                            : order.items[0]?.name}
-                          {order.items.length > 1 && (
-                            <span className='text-muted-foreground font-normal'>
-                              {' '}
-                              +{order.items.length - 1} more
-                            </span>
-                          )}
-                        </div>
-                        <button
-                          onClick={() => setDetailModalOrder(order)}
-                          className='text-[11px] text-primary hover:underline cursor-pointer font-medium mt-0.5 whitespace-nowrap block'
-                        >
-                          {order.items.length} {t('itemsCount')} • {t('viewOrder')}
-                        </button>
-                      </td>
-
-                      {/* 4. Payment Method */}
-                      <td className='py-3.5 px-4 align-middle whitespace-nowrap'>
-                        {renderPaymentBadge(order)}
-                      </td>
-
-                      {/* 5. Grand Total */}
-                      <td className='py-3.5 px-4 align-middle text-right whitespace-nowrap font-mono'>
-                        <div className='font-bold text-foreground text-sm whitespace-nowrap'>
+                      {/* 3. Grand Total, Subtotal, and Payment Method Pill */}
+                      <td className='py-3.5 px-4 align-top whitespace-nowrap font-mono'>
+                        <div className='font-bold text-foreground text-base whitespace-nowrap'>
                           {formatCurrency(order.total, language)}
                         </div>
-                        <div className='text-xs text-muted-foreground mt-0.5 whitespace-nowrap'>
-                          Subtotal: {formatCurrency(order.subtotal, language)}
+                        {/* Merged Payment Badge Row */}
+                        <div className='mt-1.5 flex items-center gap-1.5 whitespace-nowrap font-sans'>
+                          <div className='inline-flex items-center gap-1 px-2 py-0.5 rounded bg-muted/60 border border-border/80 text-[11px] font-medium text-foreground whitespace-nowrap shadow-subtle'>
+                            {order.paymentMethod === 'Cash' && (
+                              <Wallet className='w-3 h-3 text-emerald-600 shrink-0' />
+                            )}
+                            {(order.paymentMethod === 'JazzCash' ||
+                              order.paymentMethod === 'EasyPaisa') && (
+                              <CreditCard className='w-3 h-3 text-amber-600 shrink-0' />
+                            )}
+                            {order.paymentMethod === 'Bank Transfer' && (
+                              <Landmark className='w-3 h-3 text-blue-600 shrink-0' />
+                            )}
+                            <span>
+                              {order.paymentMethod === 'Cash'
+                                ? t('payCash')
+                                : order.paymentMethod}
+                            </span>
+                          </div>
+                          <span
+                            className={`text-[10px] font-semibold px-1.5 py-0.5 rounded whitespace-nowrap ${
+                              isPaid
+                                ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
+                                : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
+                            }`}
+                          >
+                            {isPaid ? t('paid') : 'COD'}
+                          </span>
                         </div>
-                        {order.deliveryFee > 0 ? (
-                          <div className='text-[11px] text-muted-foreground whitespace-nowrap'>
-                            + Shipping: {formatCurrency(order.deliveryFee, language)}
-                          </div>
-                        ) : (
-                          <div className='text-[10px] text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap'>
-                            Free Delivery
-                          </div>
-                        )}
+                        <div className='text-[10px] text-muted-foreground font-mono mt-1 whitespace-nowrap'>
+                          {order.deliveryFee > 0
+                            ? `+ Ship: ${formatCurrency(order.deliveryFee, language)}`
+                            : 'Free Delivery'}
+                        </div>
                       </td>
 
-                      {/* 6. Status */}
-                      <td className='py-3.5 px-4 align-middle whitespace-nowrap'>
+                      {/* 4. Status Badge, Courier Partner, and Tracking Number */}
+                      <td className='py-3.5 px-4 align-top whitespace-nowrap'>
                         {renderStatusBadge(order.status)}
                         {order.courierName && (
-                          <div className='mt-1 text-xs text-blue-700 dark:text-blue-400 font-medium flex items-center gap-1 whitespace-nowrap'>
+                          <div className='mt-1.5 text-xs text-blue-700 dark:text-blue-400 font-medium flex items-center gap-1 whitespace-nowrap'>
                             <Truck className='w-3.5 h-3.5 shrink-0' />
                             <span className='truncate max-w-[130px]'>{order.courierName}</span>
                           </div>
@@ -1199,10 +1108,10 @@ export default function WebOrdersManager({
                         )}
                       </td>
 
-                      {/* 7. Actions */}
-                      <td className='py-3.5 px-4 align-middle text-right whitespace-nowrap'>
+                      {/* 5. Actions: Quick Dispatch / Settle + View, WhatsApp, Print Slip, Cancel */}
+                      <td className='py-3.5 px-4 align-top text-right whitespace-nowrap'>
                         <div className='flex items-center justify-end gap-1.5 shrink-0 whitespace-nowrap'>
-                          {/* Quick Stage Progression */}
+                          {/* Quick Stage Progression Primary Button */}
                           {isPending && (
                             <Button
                               onClick={() => handleOpenDispatch(order)}
@@ -1227,7 +1136,7 @@ export default function WebOrdersManager({
                             </Button>
                           )}
 
-                          {/* View Details */}
+                          {/* View Details Modal Trigger */}
                           <button
                             onClick={() => setDetailModalOrder(order)}
                             className='h-8 w-8 rounded-lg border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
@@ -1236,7 +1145,7 @@ export default function WebOrdersManager({
                             <Eye className='w-4 h-4 shrink-0' />
                           </button>
 
-                          {/* WhatsApp */}
+                          {/* WhatsApp Chat Preview */}
                           <button
                             onClick={() => setWhatsAppModalData(order)}
                             className='h-8 w-8 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
@@ -1245,7 +1154,7 @@ export default function WebOrdersManager({
                             <MessageSquare className='w-4 h-4 shrink-0' />
                           </button>
 
-                          {/* Print Slip */}
+                          {/* Print Delivery Packing Slip */}
                           <button
                             onClick={() => handlePrintDeliverySlip(order)}
                             className='h-8 w-8 rounded-lg border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
@@ -1282,6 +1191,7 @@ export default function WebOrdersManager({
             const isCompleted = order.status === 'Completed'
             const isCancelled = order.status === 'Cancelled'
             const isCopied = copiedOrderId === order.id
+            const isPaid = order.paymentStatus === 'Paid'
 
             return (
               <Card
@@ -1465,7 +1375,35 @@ export default function WebOrdersManager({
 
                   {/* Total & Payment Row */}
                   <div className='pt-2 border-t border-border flex items-center justify-between'>
-                    <div>{renderPaymentBadge(order)}</div>
+                    <div className='flex items-center gap-1.5'>
+                      <div className='inline-flex items-center gap-1 px-2.5 py-1 rounded bg-muted/60 border border-border/80 text-xs font-medium text-foreground whitespace-nowrap shadow-subtle'>
+                        {order.paymentMethod === 'Cash' && (
+                          <Wallet className='w-3 h-3 text-emerald-600 shrink-0' />
+                        )}
+                        {(order.paymentMethod === 'JazzCash' ||
+                          order.paymentMethod === 'EasyPaisa') && (
+                          <CreditCard className='w-3 h-3 text-amber-600 shrink-0' />
+                        )}
+                        {order.paymentMethod === 'Bank Transfer' && (
+                          <Landmark className='w-3 h-3 text-blue-600 shrink-0' />
+                        )}
+                        <span>
+                          {order.paymentMethod === 'Cash'
+                            ? t('payCash')
+                            : order.paymentMethod}
+                        </span>
+                      </div>
+                      <span
+                        className={`text-[10px] font-semibold px-1.5 py-0.5 rounded whitespace-nowrap ${
+                          isPaid
+                            ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
+                            : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
+                        }`}
+                      >
+                        {isPaid ? t('paid') : 'COD'}
+                      </span>
+                    </div>
+
                     <div className='text-right'>
                       <div className='text-[10px] text-muted-foreground uppercase font-semibold'>
                         {t('grandTotal')}
@@ -1712,7 +1650,43 @@ export default function WebOrdersManager({
                 </button>
               </div>
 
-              <div>{renderPaymentBadge(detailModalOrder)}</div>
+              {/* Payment Pill */}
+              <div className='flex items-center gap-1.5'>
+                <div className='inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-muted/60 border border-border/80 text-xs font-medium text-foreground'>
+                  {detailModalOrder.paymentMethod === 'Cash' && (
+                    <Wallet className='w-3 h-3 text-emerald-600 shrink-0' />
+                  )}
+                  {(detailModalOrder.paymentMethod === 'JazzCash' ||
+                    detailModalOrder.paymentMethod === 'EasyPaisa') && (
+                    <CreditCard className='w-3 h-3 text-amber-600 shrink-0' />
+                  )}
+                  {detailModalOrder.paymentMethod === 'Bank Transfer' && (
+                    <Landmark className='w-3 h-3 text-blue-600 shrink-0' />
+                  )}
+                  <span>
+                    {detailModalOrder.paymentMethod === 'Cash'
+                      ? t('payCash')
+                      : detailModalOrder.paymentMethod}
+                  </span>
+                </div>
+                <span
+                  className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                    detailModalOrder.paymentStatus === 'Paid'
+                      ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
+                      : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
+                  }`}
+                >
+                  {detailModalOrder.paymentStatus === 'Paid' ? t('paid') : 'COD'}
+                </span>
+                {detailModalOrder.paymentReference && (
+                  <span
+                    className='font-mono text-[10px] text-muted-foreground'
+                    dir='ltr'
+                  >
+                    Ref: {detailModalOrder.paymentReference}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* 2-Column Info Grid */}
@@ -1819,7 +1793,7 @@ export default function WebOrdersManager({
               </div>
             </div>
 
-            {/* Line Items Table */}
+            {/* Line Items Table with High-Res Image Preview */}
             <div className='space-y-2'>
               <div className='font-semibold text-foreground text-xs'>
                 {t('orderedItems')} ({detailModalOrder.items.length})
@@ -1946,7 +1920,7 @@ export default function WebOrdersManager({
                     size='sm'
                     className='h-8 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1.5'
                   >
-                    <Truck className='w-4 h-4' />
+                    <Truck className='w-3.5 h-3.5' />
                     <span>{t('markDispatched')}</span>
                   </Button>
                 )}
@@ -1961,7 +1935,7 @@ export default function WebOrdersManager({
                     size='sm'
                     className='h-8 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1.5'
                   >
-                    <CheckCircle2 className='w-4 h-4' />
+                    <CheckCircle2 className='w-3.5 h-3.5' />
                     <span>{t('markCompleted')}</span>
                   </Button>
                 )}
