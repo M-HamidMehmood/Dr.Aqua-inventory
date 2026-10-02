@@ -80,7 +80,7 @@ export function DialogContent({ className, children, ...props }) {
   return (
     <div
       className={cn(
-        'relative w-full max-h-[85vh] flex flex-col rounded-xl border border-border bg-card p-6 shadow-floating text-card-foreground overflow-y-auto',
+        'relative w-full max-h-[90vh] max-h-[90dvh] flex flex-col rounded-xl border border-border bg-card p-6 shadow-floating text-card-foreground overflow-y-auto overscroll-contain',
         className
       )}
       {...props}
@@ -93,7 +93,7 @@ export function DialogContent({ className, children, ...props }) {
 export function DialogHeader({ className, children, ...props }) {
   return (
     <div
-      className={cn('flex flex-col space-y-1.5 text-center sm:text-left pb-4 border-b border-border sticky top-0 bg-card z-10', className)}
+      className={cn('flex flex-col space-y-1.5 text-center sm:text-left pb-4 border-b border-border sticky top-0 bg-card z-10 shrink-0', className)}
       {...props}
     >
       {children}
@@ -126,7 +126,7 @@ export function DialogDescription({ className, children, ...props }) {
 export function DialogFooter({ className, children, ...props }) {
   return (
     <div
-      className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 pt-4 border-t border-border mt-auto gap-2 sticky bottom-0 bg-card z-10', className)}
+      className={cn('flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-4 border-t border-border mt-auto sticky bottom-0 bg-card z-10 shrink-0', className)}
       {...props}
     >
       {children}

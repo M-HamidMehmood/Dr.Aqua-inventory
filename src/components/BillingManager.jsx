@@ -640,86 +640,88 @@ export default function BillingManager({
               </div>
             </CardHeader>
 
-            <CardContent className='flex-1 p-0'>
+            <CardContent className='flex-1 p-0 overflow-hidden flex flex-col min-h-0'>
               {bill.items.length === 0 ? (
                 <div className='p-8 text-center text-muted-foreground'>
                   <FileText className='w-10 h-10 mx-auto text-muted-foreground/40 mb-2' />
                   <p className='text-sm font-medium'>{t('noItemsInBill')}</p>
                 </div>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>{t('productAndMedia')}</TableHead>
-                      <TableHead className='text-center'>{t('quantity')}</TableHead>
-                      <TableHead className={isRTL ? 'text-left' : 'text-right'}>{t('unitPrice')}</TableHead>
-                      <TableHead className={isRTL ? 'text-left' : 'text-right'}>{t('total')}</TableHead>
-                      <TableHead className='w-10'></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {bill.items.map((item, idx) => {
-                      const itemName = language === 'ur' && item.urduName ? item.urduName : item.name
-                      return (
-                        <TableRow key={idx}>
-                          <TableCell>
-                            <div className='flex items-center gap-2.5'>
-                              {item.image && (
-                                <div
-                                  onClick={() => setPreviewProduct(item)}
-                                  className='relative group w-8 h-8 rounded-md overflow-hidden border border-border/80 shrink-0 cursor-zoom-in bg-muted/40 hover:ring-2 hover:ring-primary/60 transition-all'
-                                  title={language === 'ur' ? 'بڑی تصویر دیکھیں' : 'Click to enlarge image'}
-                                >
-                                  <img
-                                    src={item.image}
-                                    alt={itemName}
-                                    className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-200'
-                                    onError={(e) => {
-                                      e.currentTarget.style.display = 'none'
-                                    }}
-                                  />
-                                  <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white'>
-                                    <Eye className='w-3 h-3' />
+                <div className='overflow-y-auto max-h-[360px] lg:max-h-[calc(100vh-440px)] min-h-[140px] overscroll-contain'>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>{t('productAndMedia')}</TableHead>
+                        <TableHead className='text-center'>{t('quantity')}</TableHead>
+                        <TableHead className={isRTL ? 'text-left' : 'text-right'}>{t('unitPrice')}</TableHead>
+                        <TableHead className={isRTL ? 'text-left' : 'text-right'}>{t('total')}</TableHead>
+                        <TableHead className='w-10'></TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {bill.items.map((item, idx) => {
+                        const itemName = language === 'ur' && item.urduName ? item.urduName : item.name
+                        return (
+                          <TableRow key={idx}>
+                            <TableCell>
+                              <div className='flex items-center gap-2.5'>
+                                {item.image && (
+                                  <div
+                                    onClick={() => setPreviewProduct(item)}
+                                    className='relative group w-8 h-8 rounded-md overflow-hidden border border-border/80 shrink-0 cursor-zoom-in bg-muted/40 hover:ring-2 hover:ring-primary/60 transition-all'
+                                    title={language === 'ur' ? 'بڑی تصویر دیکھیں' : 'Click to enlarge image'}
+                                  >
+                                    <img
+                                      src={item.image}
+                                      alt={itemName}
+                                      className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-200'
+                                      onError={(e) => {
+                                        e.currentTarget.style.display = 'none'
+                                      }}
+                                    />
+                                    <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white'>
+                                      <Eye className='w-3 h-3' />
+                                    </div>
                                   </div>
+                                )}
+                                <div>
+                                  <div className='font-medium text-foreground text-xs'>
+                                    {itemName}
+                                  </div>
+                                  <span className='font-mono text-[10px] text-muted-foreground' dir='ltr'>
+                                    {item.sku || `DA-${item.id}`}
+                                  </span>
                                 </div>
-                              )}
-                              <div>
-                                <div className='font-medium text-foreground text-xs'>
-                                  {itemName}
-                                </div>
-                                <span className='font-mono text-[10px] text-muted-foreground' dir='ltr'>
-                                  {item.sku || `DA-${item.id}`}
-                                </span>
                               </div>
-                            </div>
-                          </TableCell>
-                          <TableCell className='text-center font-mono font-semibold text-xs'>
-                            {item.qty}
-                          </TableCell>
-                          <TableCell className={`${isRTL ? 'text-left' : 'text-right'} font-mono text-xs text-muted-foreground`}>
-                            {formatCurrency(item.price, language)}
-                          </TableCell>
-                          <TableCell className={`${isRTL ? 'text-left' : 'text-right'} font-mono font-semibold text-xs text-foreground`}>
-                            {formatCurrency(item.price * item.qty, language)}
-                          </TableCell>
-                          <TableCell>
-                            <button
-                              onClick={() => removeItem(idx)}
-                              className='text-muted-foreground hover:text-destructive transition-colors p-1 cursor-pointer'
-                              title='Remove'
-                            >
-                              <Trash2 className='w-3.5 h-3.5' />
-                            </button>
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
-                  </TableBody>
-                </Table>
+                            </TableCell>
+                            <TableCell className='text-center font-mono font-semibold text-xs'>
+                              {item.qty}
+                            </TableCell>
+                            <TableCell className={`${isRTL ? 'text-left' : 'text-right'} font-mono text-xs text-muted-foreground`}>
+                              {formatCurrency(item.price, language)}
+                            </TableCell>
+                            <TableCell className={`${isRTL ? 'text-left' : 'text-right'} font-mono font-semibold text-xs text-foreground`}>
+                              {formatCurrency(item.price * item.qty, language)}
+                            </TableCell>
+                            <TableCell>
+                              <button
+                                onClick={() => removeItem(idx)}
+                                className='text-muted-foreground hover:text-destructive transition-colors p-1 cursor-pointer'
+                                title='Remove'
+                              >
+                                <Trash2 className='w-3.5 h-3.5' />
+                              </button>
+                            </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
               )}
             </CardContent>
 
-            <CardFooter className='border-t border-border pt-4 flex flex-col gap-4 bg-muted/10'>
+            <CardFooter className='flex-shrink-0 border-t border-border pt-4 flex flex-col gap-4 bg-muted/10 mt-auto'>
               {/* Calculations summary */}
               <div className='w-full space-y-2 text-xs'>
                 <div className='flex justify-between text-muted-foreground'>

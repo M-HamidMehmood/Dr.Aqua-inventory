@@ -606,9 +606,9 @@ function AppContent() {
   const tabHeader = getTabHeader()
 
   return (
-    <div className='min-h-screen bg-background text-foreground flex flex-col lg:flex-row font-sans antialiased overflow-x-hidden'>
+    <div className='h-screen max-h-screen h-[100dvh] max-h-[100dvh] bg-background text-foreground flex flex-col lg:flex-row font-sans antialiased overflow-hidden'>
       {/* Mobile Top Header */}
-      <header className='lg:hidden bg-card/95 backdrop-blur-md border-b border-border sticky top-0 z-30 px-4 py-3 flex items-center justify-between shadow-subtle'>
+      <header className='lg:hidden flex-shrink-0 bg-card/95 backdrop-blur-md border-b border-border sticky top-0 z-30 px-4 py-3 flex items-center justify-between shadow-subtle'>
         <div className='flex items-center gap-2.5'>
           <button
             type='button'
@@ -668,48 +668,48 @@ function AppContent() {
           />
 
           {/* Drawer Surface */}
-          <div className='relative w-72 max-w-[85vw] bg-card border-r rtl:border-r-0 rtl:border-l border-border h-full flex flex-col justify-between shadow-2xl z-10'>
+          <div className='relative w-72 max-w-[85vw] bg-card border-r rtl:border-r-0 rtl:border-l border-border h-full max-h-[100dvh] flex flex-col shadow-2xl z-10 overflow-hidden'>
             {/* Drawer Header */}
-            <div>
-              <div className='p-4 border-b border-border flex items-center justify-between'>
-                <div className='flex items-center gap-2.5'>
-                  <div className='w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center'>
-                    <Droplets className='w-5 h-5' />
+            <div className='flex-shrink-0 p-4 border-b border-border flex items-center justify-between'>
+              <div className='flex items-center gap-2.5'>
+                <div className='w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center'>
+                  <Droplets className='w-5 h-5' />
+                </div>
+                <div>
+                  <div className='font-black text-base text-foreground tracking-tight'>
+                    {t('brandTitle')}
                   </div>
-                  <div>
-                    <div className='font-black text-base text-foreground tracking-tight'>
-                      {t('brandTitle')}
-                    </div>
-                    <div className='text-[10px] text-muted-foreground'>
-                      {t('brandTagline')}
-                    </div>
+                  <div className='text-[10px] text-muted-foreground'>
+                    {t('brandTagline')}
                   </div>
                 </div>
-                <button
-                  type='button'
-                  onClick={() => setMobileMenuOpen(false)}
-                  className='p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer'
-                >
-                  <X className='w-5 h-5' />
-                </button>
               </div>
+              <button
+                type='button'
+                onClick={() => setMobileMenuOpen(false)}
+                className='p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer'
+              >
+                <X className='w-5 h-5' />
+              </button>
+            </div>
 
-              {/* Drawer Links */}
-              <div className='p-3 overflow-y-auto max-h-[calc(100vh-220px)]'>
-                {renderNavLinks(() => setMobileMenuOpen(false))}
-              </div>
+            {/* Drawer Links */}
+            <div className='flex-1 p-3 overflow-y-auto overscroll-contain min-h-0'>
+              {renderNavLinks(() => setMobileMenuOpen(false))}
             </div>
 
             {/* Drawer Footer */}
-            {renderSidebarBottom()}
+            <div className='flex-shrink-0 mt-auto'>
+              {renderSidebarBottom()}
+            </div>
           </div>
         </div>
       )}
 
-      {/* Desktop Left Sidebar */}
-      <aside className='hidden lg:flex w-64 flex-col border-r rtl:border-r-0 rtl:border-l border-border bg-card sticky top-0 h-screen z-20 flex-shrink-0 select-none'>
+      {/* Desktop Left Sidebar (Locked to Viewport) */}
+      <aside className='hidden lg:flex w-64 flex-col border-r rtl:border-r-0 rtl:border-l border-border bg-card h-full max-h-screen flex-shrink-0 select-none z-20 overflow-hidden'>
         {/* Brand Header */}
-        <div className='p-4 border-b border-border'>
+        <div className='flex-shrink-0 p-4 border-b border-border'>
           <div className='flex items-center gap-3'>
             <div className='w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center flex-shrink-0'>
               <Droplets className='w-5 h-5' />
@@ -732,18 +732,20 @@ function AppContent() {
         </div>
 
         {/* Sidebar Nav Links */}
-        <div className='flex-1 p-3 overflow-y-auto'>
+        <div className='flex-1 p-3 overflow-y-auto overscroll-contain scrollbar-none min-h-0'>
           {renderNavLinks()}
         </div>
 
         {/* Sidebar Footer */}
-        {renderSidebarBottom()}
+        <div className='flex-shrink-0 mt-auto'>
+          {renderSidebarBottom()}
+        </div>
       </aside>
 
-      {/* Main Content Workspace */}
-      <div className='flex-1 flex flex-col min-w-0 min-h-screen bg-background'>
-        {/* Top Context Bar */}
-        <header className='hidden lg:flex h-16 border-b border-border bg-card/60 backdrop-blur-md px-6 lg:px-8 items-center justify-between sticky top-0 z-10 shadow-subtle'>
+      {/* Main Content Workspace (Independent Scroll Container) */}
+      <div className='flex-1 flex flex-col min-w-0 h-full max-h-screen overflow-hidden bg-background'>
+        {/* Top Context Bar (Pinned) */}
+        <header className='hidden lg:flex h-16 flex-shrink-0 border-b border-border bg-card/80 backdrop-blur-md px-6 lg:px-8 items-center justify-between z-10 shadow-subtle'>
           <div>
             <h1 className='text-base font-bold text-foreground'>
               {tabHeader.title}
@@ -862,8 +864,8 @@ function AppContent() {
         </div>
       </header>
 
-        {/* Main Body */}
-        <main className='flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto'>
+        {/* Main Body (Dedicated Scroll Container) */}
+        <main className='flex-1 overflow-y-auto overflow-x-hidden min-h-0 p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto overscroll-contain'>
           {/* Admin Only: Financial Dashboard */}
           {activeTab === 'dashboard' &&
             (currentUser.role === 'admin' ? (

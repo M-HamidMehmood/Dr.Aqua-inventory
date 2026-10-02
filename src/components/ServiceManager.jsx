@@ -1174,8 +1174,8 @@ export default function ServiceManager({
       {/* ================= MODAL 2: COMPLETE JOB & ATOMICALLY DEDUCT REPLACEMENT PARTS ================= */}
       <Dialog open={!!completeJobTarget} onOpenChange={(open) => !open && setCompleteJobTarget(null)}>
         {completeJobTarget && (
-          <DialogContent className='max-w-2xl max-h-[90vh] overflow-y-auto p-0'>
-            <div className='p-4 border-b border-border bg-card flex items-center justify-between'>
+          <DialogContent className='max-w-2xl max-h-[90vh] max-h-[90dvh] overflow-hidden p-0 flex flex-col'>
+            <div className='p-4 border-b border-border bg-card flex items-center justify-between shrink-0 sticky top-0 z-10'>
               <div className='flex items-center gap-2'>
                 <div className='w-8 h-8 rounded-lg bg-emerald-600/10 text-emerald-600 flex items-center justify-center'>
                   <Wrench className='w-4 h-4' />
@@ -1196,7 +1196,7 @@ export default function ServiceManager({
               </button>
             </div>
 
-            <div className='p-5 space-y-4 text-xs'>
+            <div className='p-5 space-y-4 text-xs overflow-y-auto flex-1 min-h-0 overscroll-contain'>
               {/* Summary of Job */}
               <div className='p-3 bg-muted/40 rounded-xl flex flex-wrap items-center justify-between gap-3 border border-border'>
                 <div>
@@ -1375,7 +1375,7 @@ export default function ServiceManager({
               </div>
             </div>
 
-            <DialogFooter className='p-4 border-t border-border bg-card/60 flex items-center justify-between'>
+            <DialogFooter className='p-4 border-t border-border bg-card/90 flex items-center justify-between shrink-0 mt-auto sticky bottom-0 z-10'>
               <Button type='button' variant='outline' size='sm' onClick={() => setCompleteJobTarget(null)}>
                 {t('cancel')}
               </Button>

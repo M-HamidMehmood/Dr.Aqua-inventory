@@ -163,7 +163,7 @@ export default function CustomerManager({ customers, updateCustomers }) {
             </CardDescription>
           </CardHeader>
           <CardContent className='pt-0'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-2.5'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto overscroll-contain pr-1'>
               {reminders.map((r, i) => (
                 <div
                   key={i}
