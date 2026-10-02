@@ -560,29 +560,41 @@ export default function WebOrdersManager({
     switch (status) {
       case 'Pending':
         return (
-          <Badge variant='warning' className='text-xs gap-1 py-0.5 px-2 font-medium'>
-            <Clock className='w-3 h-3' />
+          <Badge
+            variant='warning'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+          >
+            <Clock className='w-3.5 h-3.5 shrink-0' />
             <span>{t('pendingOrders')}</span>
           </Badge>
         )
       case 'Dispatched':
         return (
-          <Badge variant='info' className='text-xs gap-1 py-0.5 px-2 font-medium'>
-            <Truck className='w-3 h-3' />
+          <Badge
+            variant='info'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+          >
+            <Truck className='w-3.5 h-3.5 shrink-0' />
             <span>{t('dispatchedOrders')}</span>
           </Badge>
         )
       case 'Completed':
         return (
-          <Badge variant='success' className='text-xs gap-1 py-0.5 px-2 font-medium'>
-            <CheckCircle2 className='w-3 h-3' />
+          <Badge
+            variant='success'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+          >
+            <CheckCircle2 className='w-3.5 h-3.5 shrink-0' />
             <span>{t('completedOrders')}</span>
           </Badge>
         )
       case 'Cancelled':
         return (
-          <Badge variant='destructive' className='text-xs gap-1 py-0.5 px-2 font-medium'>
-            <X className='w-3 h-3' />
+          <Badge
+            variant='destructive'
+            className='text-xs gap-1.5 py-1 px-2.5 font-semibold whitespace-nowrap shadow-subtle'
+          >
+            <X className='w-3.5 h-3.5 shrink-0' />
             <span>{t('cancelledOrders')}</span>
           </Badge>
         )
@@ -595,16 +607,18 @@ export default function WebOrdersManager({
   const renderPaymentBadge = (order) => {
     const isPaid = order.paymentStatus === 'Paid'
     return (
-      <div className='flex flex-col gap-1'>
-        <div className='inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-muted/60 border border-border/80 text-[11px] font-medium text-foreground w-fit'>
-          {order.paymentMethod === 'Cash' && <Wallet className='w-3 h-3 text-emerald-600' />}
+      <div className='flex flex-col gap-1 items-start whitespace-nowrap'>
+        <div className='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-muted/60 border border-border/80 text-xs font-medium text-foreground whitespace-nowrap shadow-subtle'>
+          {order.paymentMethod === 'Cash' && (
+            <Wallet className='w-3.5 h-3.5 text-emerald-600 shrink-0' />
+          )}
           {(order.paymentMethod === 'JazzCash' || order.paymentMethod === 'EasyPaisa') && (
-            <CreditCard className='w-3 h-3 text-amber-600' />
+            <CreditCard className='w-3.5 h-3.5 text-amber-600 shrink-0' />
           )}
           {order.paymentMethod === 'Bank Transfer' && (
-            <Landmark className='w-3 h-3 text-blue-600' />
+            <Landmark className='w-3.5 h-3.5 text-blue-600 shrink-0' />
           )}
-          <span>
+          <span className='whitespace-nowrap'>
             {order.paymentMethod === 'Cash'
               ? t('payCash')
               : order.paymentMethod === 'JazzCash'
@@ -614,9 +628,9 @@ export default function WebOrdersManager({
               : t('payBankTransfer')}
           </span>
         </div>
-        <div className='flex items-center gap-1.5'>
+        <div className='flex items-center gap-1.5 whitespace-nowrap'>
           <span
-            className={`text-[10px] font-medium px-1.5 py-0.2 rounded ${
+            className={`text-[10px] font-semibold px-2 py-0.5 rounded whitespace-nowrap ${
               isPaid
                 ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
                 : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
@@ -625,7 +639,10 @@ export default function WebOrdersManager({
             {isPaid ? t('paid') : t('unpaidCod')}
           </span>
           {order.paymentReference && (
-            <span className='font-mono text-[10px] text-muted-foreground' dir='ltr'>
+            <span
+              className='font-mono text-[10px] text-muted-foreground whitespace-nowrap'
+              dir='ltr'
+            >
               Ref: {order.paymentReference}
             </span>
           )}
@@ -670,7 +687,7 @@ export default function WebOrdersManager({
       <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl sm:text-2xl font-bold tracking-tight text-foreground flex items-center gap-2.5'>
-            <div className='w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shadow-subtle'>
+            <div className='w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shadow-subtle shrink-0'>
               <ShoppingBag className='w-4 h-4' />
             </div>
             <span>{t('webOrdersTitle')}</span>
@@ -683,7 +700,7 @@ export default function WebOrdersManager({
         <div className='flex items-center gap-2 self-start sm:self-auto'>
           <Badge
             variant='outline'
-            className='px-3 py-1 text-xs font-mono gap-1.5 bg-background shadow-subtle'
+            className='px-3 py-1 text-xs font-mono gap-1.5 bg-background shadow-subtle shrink-0'
           >
             <span className='w-2 h-2 rounded-full bg-emerald-500 animate-pulse' />
             <span>dr-aqua-project.vercel.app</span>
@@ -799,7 +816,7 @@ export default function WebOrdersManager({
       </div>
 
       {/* Main Control Toolbar: Status Pills, City, Sort, Search, and View Mode Switcher */}
-      <Card className='p-3 sm:p-4 border-border shadow-subtle bg-card/60 backdrop-blur-sm'>
+      <Card className='p-3 sm:p-4 border-border shadow-subtle bg-card/70 backdrop-blur-sm'>
         <div className='flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3'>
           {/* Status Tabs */}
           <div className='flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0'>
@@ -841,7 +858,7 @@ export default function WebOrdersManager({
           {/* Right Toolbar: City filter, Sort dropdown, Search input & View switcher */}
           <div className='flex flex-wrap items-center gap-2'>
             {/* City Filter */}
-            <div className='flex items-center gap-1.5 bg-muted/40 rounded-lg px-2 py-1 border border-border/60 text-xs'>
+            <div className='flex items-center gap-1.5 bg-muted/40 rounded-lg px-2.5 py-1 border border-border/60 text-xs shrink-0'>
               <MapPin className='w-3.5 h-3.5 text-muted-foreground shrink-0' />
               <select
                 value={selectedCity}
@@ -865,7 +882,7 @@ export default function WebOrdersManager({
             </div>
 
             {/* Sorting Dropdown */}
-            <div className='flex items-center gap-1.5 bg-muted/40 rounded-lg px-2 py-1 border border-border/60 text-xs'>
+            <div className='flex items-center gap-1.5 bg-muted/40 rounded-lg px-2.5 py-1 border border-border/60 text-xs shrink-0'>
               <ArrowUpDown className='w-3.5 h-3.5 text-muted-foreground shrink-0' />
               <select
                 value={sortBy}
@@ -920,7 +937,7 @@ export default function WebOrdersManager({
             <div className='flex items-center bg-muted/50 p-0.5 rounded-lg border border-border shrink-0'>
               <button
                 onClick={() => setViewMode('table')}
-                className={`p-1.5 rounded-md transition-all cursor-pointer flex items-center gap-1 text-xs font-medium ${
+                className={`p-1.5 rounded-md transition-all cursor-pointer flex items-center gap-1.5 text-xs font-medium ${
                   viewMode === 'table'
                     ? 'bg-background text-foreground shadow-subtle font-semibold'
                     : 'text-muted-foreground hover:text-foreground'
@@ -932,7 +949,7 @@ export default function WebOrdersManager({
               </button>
               <button
                 onClick={() => setViewMode('cards')}
-                className={`p-1.5 rounded-md transition-all cursor-pointer flex items-center gap-1 text-xs font-medium ${
+                className={`p-1.5 rounded-md transition-all cursor-pointer flex items-center gap-1.5 text-xs font-medium ${
                   viewMode === 'cards'
                     ? 'bg-background text-foreground shadow-subtle font-semibold'
                     : 'text-muted-foreground hover:text-foreground'
@@ -959,22 +976,36 @@ export default function WebOrdersManager({
           </p>
         </Card>
       ) : viewMode === 'table' ? (
-        /* ================== TABLE VIEW ================== */
-        <Card className='overflow-hidden border-border shadow-subtle'>
-          <div className='overflow-x-auto'>
-            <Table>
-              <TableHeader>
-                <TableRow className='bg-muted/40 hover:bg-muted/40 text-xs font-semibold'>
-                  <TableHead className='w-[140px]'>{t('orderId')}</TableHead>
-                  <TableHead className='min-w-[180px]'>{t('customerAndPhone')}</TableHead>
-                  <TableHead className='min-w-[200px]'>{t('orderedItems')}</TableHead>
-                  <TableHead className='min-w-[150px]'>{t('paymentMethod')}</TableHead>
-                  <TableHead className='w-[120px] text-right'>{t('grandTotal')}</TableHead>
-                  <TableHead className='w-[130px]'>{t('orderStatus')}</TableHead>
-                  <TableHead className='w-[160px] text-center'>{t('actions')}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody className='divide-y divide-border/60 text-xs'>
+        /* ================== TABLE VIEW (HIGH-DENSITY ENTERPRISE TABLE) ================== */
+        <Card className='overflow-hidden border-border shadow-subtle bg-card'>
+          <div className='w-full overflow-x-auto'>
+            <table className='w-full text-left border-collapse min-w-[1340px] text-xs'>
+              <thead>
+                <tr className='border-b border-border bg-muted/40 font-semibold text-muted-foreground uppercase tracking-wider text-[11px]'>
+                  <th className='py-3.5 px-4 w-[170px] min-w-[170px] whitespace-nowrap'>
+                    {t('orderId')}
+                  </th>
+                  <th className='py-3.5 px-4 w-[260px] min-w-[260px]'>
+                    {t('customerAndPhone')}
+                  </th>
+                  <th className='py-3.5 px-4 w-[250px] min-w-[250px]'>
+                    {t('orderedItems')}
+                  </th>
+                  <th className='py-3.5 px-4 w-[180px] min-w-[180px] whitespace-nowrap'>
+                    {t('paymentMethod')}
+                  </th>
+                  <th className='py-3.5 px-4 w-[160px] min-w-[160px] text-right whitespace-nowrap'>
+                    {t('grandTotal')}
+                  </th>
+                  <th className='py-3.5 px-4 w-[160px] min-w-[160px] whitespace-nowrap'>
+                    {t('orderStatus')}
+                  </th>
+                  <th className='py-3.5 px-4 w-[240px] min-w-[240px] text-right whitespace-nowrap'>
+                    {t('actions')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className='divide-y divide-border/60'>
                 {pagedOrders.map((order) => {
                   const isPending = order.status === 'Pending'
                   const isDispatched = order.status === 'Dispatched'
@@ -983,36 +1014,37 @@ export default function WebOrdersManager({
                   const isCopied = copiedOrderId === order.id
 
                   return (
-                    <TableRow
+                    <tr
                       key={order.id}
                       className='hover:bg-muted/30 transition-colors group'
                     >
-                      {/* Order ID & Time */}
-                      <TableCell className='align-top py-3 font-mono'>
-                        <div className='flex items-center gap-1.5'>
+                      {/* 1. Order ID & Time */}
+                      <td className='py-3.5 px-4 align-middle whitespace-nowrap'>
+                        <div className='flex items-center gap-1.5 whitespace-nowrap'>
                           <span
                             onClick={() => setDetailModalOrder(order)}
-                            className='font-bold text-primary hover:underline cursor-pointer'
+                            className='font-mono font-bold text-sm text-primary hover:underline cursor-pointer tracking-tight whitespace-nowrap'
                             dir='ltr'
                           >
                             {order.id}
                           </span>
                           <button
                             onClick={() => handleCopyText(order.id, 'orderId')}
-                            className='p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground cursor-pointer transition-colors'
+                            className='p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground cursor-pointer transition-colors shrink-0'
                             title={t('copyOrderId')}
                           >
                             {isCopied ? (
-                              <Check className='w-3 h-3 text-emerald-600' />
+                              <Check className='w-3.5 h-3.5 text-emerald-600' />
                             ) : (
-                              <Copy className='w-3 h-3' />
+                              <Copy className='w-3.5 h-3.5' />
                             )}
                           </button>
                         </div>
-                        <div className='text-[10px] text-muted-foreground mt-0.5 font-sans'>
+                        <div className='text-xs text-muted-foreground mt-0.5 whitespace-nowrap font-sans'>
                           {new Date(order.createdAt).toLocaleDateString([], {
                             month: 'short',
                             day: 'numeric',
+                            year: 'numeric',
                           })}{' '}
                           •{' '}
                           {new Date(order.createdAt).toLocaleTimeString([], {
@@ -1020,36 +1052,41 @@ export default function WebOrdersManager({
                             minute: '2-digit',
                           })}
                         </div>
-                        <span className='inline-block text-[9px] uppercase tracking-wider font-semibold px-1.5 py-0.2 bg-muted rounded text-muted-foreground mt-1'>
+                        <span className='inline-block text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-muted/60 text-muted-foreground rounded mt-1 whitespace-nowrap'>
                           {t('channelOnline')}
                         </span>
-                      </TableCell>
+                      </td>
 
-                      {/* Customer & Address */}
-                      <TableCell className='align-top py-3'>
-                        <div className='font-semibold text-foreground text-xs'>
+                      {/* 2. Customer & Delivery */}
+                      <td className='py-3.5 px-4 align-middle'>
+                        <div className='font-bold text-foreground text-sm whitespace-nowrap truncate max-w-[240px]'>
                           {order.customerName}
                         </div>
                         <div
-                          className='text-[11px] text-muted-foreground flex items-center gap-1 mt-0.5 font-mono'
+                          className='text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5 font-mono whitespace-nowrap'
                           dir='ltr'
                         >
-                          <Phone className='w-3 h-3 shrink-0' />
+                          <Phone className='w-3.5 h-3.5 text-muted-foreground shrink-0' />
                           <span>{order.customerPhone}</span>
                         </div>
-                        <div className='text-[11px] text-muted-foreground flex items-center gap-1 mt-1 truncate max-w-[200px]'>
-                          <MapPin className='w-3 h-3 text-primary shrink-0' />
-                          <span className='truncate'>{order.deliveryAddress}</span>
+                        <div className='text-xs text-muted-foreground flex items-center gap-1.5 mt-1'>
+                          <MapPin className='w-3.5 h-3.5 text-primary shrink-0' />
+                          <span
+                            className='truncate max-w-[170px]'
+                            title={order.deliveryAddress}
+                          >
+                            {order.deliveryAddress}
+                          </span>
+                          <span className='inline-block text-[10px] font-semibold px-2 py-0.5 bg-primary/10 text-primary rounded whitespace-nowrap shrink-0'>
+                            {order.city}
+                          </span>
                         </div>
-                        <span className='inline-block text-[10px] font-medium px-1.5 py-0.2 bg-primary/10 text-primary rounded mt-1'>
-                          {order.city}
-                        </span>
-                      </TableCell>
+                      </td>
 
-                      {/* Ordered Items Preview Stack */}
-                      <TableCell className='align-top py-3'>
-                        <div className='flex items-center gap-2'>
-                          <div className='flex -space-x-2 overflow-hidden py-0.5'>
+                      {/* 3. Items Ordered */}
+                      <td className='py-3.5 px-4 align-middle'>
+                        <div className='flex items-center gap-2.5'>
+                          <div className='flex -space-x-2 overflow-hidden py-0.5 shrink-0'>
                             {order.items.slice(0, 3).map((item, idx) => {
                               const productForPreview = inventory?.find(
                                 (p) => p.sku === item.sku || p.id === item.productId,
@@ -1066,7 +1103,7 @@ export default function WebOrdersManager({
                                 <div
                                   key={idx}
                                   onClick={() => setPreviewProduct(productForPreview)}
-                                  className='relative w-8 h-8 rounded-md overflow-hidden border-2 border-background shrink-0 cursor-zoom-in bg-muted/60 hover:scale-110 hover:z-10 transition-transform shadow-subtle'
+                                  className='relative w-9 h-9 rounded-md overflow-hidden border-2 border-background shrink-0 cursor-zoom-in bg-muted/60 hover:scale-110 hover:z-10 transition-transform shadow-subtle'
                                   title={`${item.name} (${item.qty}x)`}
                                 >
                                   {item.image ? (
@@ -1079,7 +1116,7 @@ export default function WebOrdersManager({
                                       }}
                                     />
                                   ) : (
-                                    <div className='w-full h-full flex items-center justify-center bg-muted text-[9px] font-mono'>
+                                    <div className='w-full h-full flex items-center justify-center bg-muted text-[10px] font-mono'>
                                       {item.qty}x
                                     </div>
                                   )}
@@ -1088,12 +1125,19 @@ export default function WebOrdersManager({
                             })}
                           </div>
                           {order.items.length > 3 && (
-                            <span className='text-[10px] font-medium text-muted-foreground font-mono'>
+                            <span className='text-xs font-semibold text-muted-foreground font-mono shrink-0'>
                               +{order.items.length - 3}
                             </span>
                           )}
                         </div>
-                        <div className='mt-1 text-[11px] text-foreground font-medium truncate max-w-[220px]'>
+                        <div
+                          className='mt-1 text-xs text-foreground font-medium truncate max-w-[220px]'
+                          title={
+                            language === 'ur' && order.items[0]?.urduName
+                              ? order.items[0].urduName
+                              : order.items[0]?.name
+                          }
+                        >
                           {language === 'ur' && order.items[0]?.urduName
                             ? order.items[0].urduName
                             : order.items[0]?.name}
@@ -1106,97 +1150,68 @@ export default function WebOrdersManager({
                         </div>
                         <button
                           onClick={() => setDetailModalOrder(order)}
-                          className='text-[10px] text-primary hover:underline cursor-pointer mt-0.5 block'
+                          className='text-[11px] text-primary hover:underline cursor-pointer font-medium mt-0.5 whitespace-nowrap block'
                         >
-                          {t('viewOrder')} ({order.items.length} {t('itemsCount')})
+                          {order.items.length} {t('itemsCount')} • {t('viewOrder')}
                         </button>
-                      </TableCell>
+                      </td>
 
-                      {/* Payment */}
-                      <TableCell className='align-top py-3'>
+                      {/* 4. Payment Method */}
+                      <td className='py-3.5 px-4 align-middle whitespace-nowrap'>
                         {renderPaymentBadge(order)}
-                      </TableCell>
+                      </td>
 
-                      {/* Total */}
-                      <TableCell className='align-top py-3 text-right'>
-                        <div className='font-bold text-foreground text-sm font-mono'>
+                      {/* 5. Grand Total */}
+                      <td className='py-3.5 px-4 align-middle text-right whitespace-nowrap font-mono'>
+                        <div className='font-bold text-foreground text-sm whitespace-nowrap'>
                           {formatCurrency(order.total, language)}
                         </div>
-                        <div className='text-[10px] text-muted-foreground font-mono mt-0.5'>
-                          Sub: {formatCurrency(order.subtotal, language)}
+                        <div className='text-xs text-muted-foreground mt-0.5 whitespace-nowrap'>
+                          Subtotal: {formatCurrency(order.subtotal, language)}
                         </div>
-                        {order.deliveryFee > 0 && (
-                          <div className='text-[9px] text-muted-foreground font-mono'>
-                            Ship: +{formatCurrency(order.deliveryFee, language)}
+                        {order.deliveryFee > 0 ? (
+                          <div className='text-[11px] text-muted-foreground whitespace-nowrap'>
+                            + Shipping: {formatCurrency(order.deliveryFee, language)}
+                          </div>
+                        ) : (
+                          <div className='text-[10px] text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap'>
+                            Free Delivery
                           </div>
                         )}
-                      </TableCell>
+                      </td>
 
-                      {/* Status */}
-                      <TableCell className='align-top py-3'>
+                      {/* 6. Status */}
+                      <td className='py-3.5 px-4 align-middle whitespace-nowrap'>
                         {renderStatusBadge(order.status)}
                         {order.courierName && (
-                          <div className='mt-1 text-[10px] text-blue-700 dark:text-blue-400 font-medium flex items-center gap-1'>
-                            <Truck className='w-3 h-3 shrink-0' />
-                            <span className='truncate max-w-[110px]'>{order.courierName}</span>
+                          <div className='mt-1 text-xs text-blue-700 dark:text-blue-400 font-medium flex items-center gap-1 whitespace-nowrap'>
+                            <Truck className='w-3.5 h-3.5 shrink-0' />
+                            <span className='truncate max-w-[130px]'>{order.courierName}</span>
                           </div>
                         )}
                         {order.trackingNumber && (
                           <div
-                            className='text-[9px] text-muted-foreground font-mono truncate max-w-[110px]'
+                            className='text-[11px] text-muted-foreground font-mono whitespace-nowrap mt-0.5'
                             dir='ltr'
                           >
                             #{order.trackingNumber}
                           </div>
                         )}
-                      </TableCell>
+                      </td>
 
-                      {/* Actions */}
-                      <TableCell className='align-top py-3 text-center'>
-                        <div className='flex items-center justify-center gap-1'>
-                          {/* View Details */}
-                          <Button
-                            onClick={() => setDetailModalOrder(order)}
-                            variant='ghost'
-                            size='sm'
-                            className='h-7 w-7 p-0 cursor-pointer text-muted-foreground hover:text-foreground'
-                            title={t('viewOrder')}
-                          >
-                            <Eye className='w-3.5 h-3.5' />
-                          </Button>
-
-                          {/* WhatsApp */}
-                          <Button
-                            onClick={() => setWhatsAppModalData(order)}
-                            variant='ghost'
-                            size='sm'
-                            className='h-7 w-7 p-0 cursor-pointer text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30'
-                            title='WhatsApp'
-                          >
-                            <MessageSquare className='w-3.5 h-3.5' />
-                          </Button>
-
-                          {/* Print Slip */}
-                          <Button
-                            onClick={() => handlePrintDeliverySlip(order)}
-                            variant='ghost'
-                            size='sm'
-                            className='h-7 w-7 p-0 cursor-pointer text-muted-foreground hover:text-foreground'
-                            title={t('printSlip')}
-                          >
-                            <Printer className='w-3.5 h-3.5' />
-                          </Button>
-
-                          {/* Quick Stage Advance */}
+                      {/* 7. Actions */}
+                      <td className='py-3.5 px-4 align-middle text-right whitespace-nowrap'>
+                        <div className='flex items-center justify-end gap-1.5 shrink-0 whitespace-nowrap'>
+                          {/* Quick Stage Progression */}
                           {isPending && (
                             <Button
                               onClick={() => handleOpenDispatch(order)}
                               size='sm'
-                              className='h-7 px-2 text-[11px] font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1'
+                              className='h-8 px-3 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1.5 shrink-0 whitespace-nowrap shadow-subtle'
                               title={t('markDispatched')}
                             >
-                              <Truck className='w-3 h-3' />
-                              <span className='hidden xl:inline'>{t('quickDispatch')}</span>
+                              <Truck className='w-3.5 h-3.5 shrink-0' />
+                              <span>{t('quickDispatch')}</span>
                             </Button>
                           )}
 
@@ -1204,33 +1219,58 @@ export default function WebOrdersManager({
                             <Button
                               onClick={() => handleOpenComplete(order)}
                               size='sm'
-                              className='h-7 px-2 text-[11px] font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1'
+                              className='h-8 px-3 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1.5 shrink-0 whitespace-nowrap shadow-subtle'
                               title={t('markCompleted')}
                             >
-                              <CheckCircle2 className='w-3 h-3' />
-                              <span className='hidden xl:inline'>{t('quickSettle')}</span>
+                              <CheckCircle2 className='w-3.5 h-3.5 shrink-0' />
+                              <span>{t('quickSettle')}</span>
                             </Button>
                           )}
 
+                          {/* View Details */}
+                          <button
+                            onClick={() => setDetailModalOrder(order)}
+                            className='h-8 w-8 rounded-lg border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
+                            title={t('viewOrder')}
+                          >
+                            <Eye className='w-4 h-4 shrink-0' />
+                          </button>
+
+                          {/* WhatsApp */}
+                          <button
+                            onClick={() => setWhatsAppModalData(order)}
+                            className='h-8 w-8 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
+                            title='WhatsApp'
+                          >
+                            <MessageSquare className='w-4 h-4 shrink-0' />
+                          </button>
+
+                          {/* Print Slip */}
+                          <button
+                            onClick={() => handlePrintDeliverySlip(order)}
+                            className='h-8 w-8 rounded-lg border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center shrink-0 cursor-pointer transition-colors shadow-subtle'
+                            title={t('printSlip')}
+                          >
+                            <Printer className='w-4 h-4 shrink-0' />
+                          </button>
+
                           {/* Cancel Order */}
                           {!isCompleted && !isCancelled && (
-                            <Button
+                            <button
                               onClick={() => handleCancelOrder(order)}
-                              variant='ghost'
-                              size='sm'
-                              className='h-7 w-7 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10 cursor-pointer'
+                              className='h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 flex items-center justify-center shrink-0 cursor-pointer transition-colors'
                               title={t('cancelOrder')}
                             >
-                              <X className='w-3 h-3' />
-                            </Button>
+                              <X className='w-4 h-4 shrink-0' />
+                            </button>
                           )}
                         </div>
-                      </TableCell>
-                    </TableRow>
+                      </td>
+                    </tr>
                   )
                 })}
-              </TableBody>
-            </Table>
+              </tbody>
+            </table>
           </div>
         </Card>
       ) : (
@@ -1249,11 +1289,11 @@ export default function WebOrdersManager({
                 className='border-border/80 shadow-subtle hover:shadow-elevated transition-all flex flex-col justify-between overflow-hidden bg-card'
               >
                 {/* Card Top Ribbon */}
-                <div className='bg-muted/30 px-3.5 py-2.5 border-b border-border flex items-center justify-between gap-2'>
-                  <div className='flex items-center gap-1.5'>
+                <div className='bg-muted/30 px-4 py-3 border-b border-border flex items-center justify-between gap-2'>
+                  <div className='flex items-center gap-1.5 whitespace-nowrap'>
                     <Badge
                       variant='outline'
-                      className='font-mono font-semibold text-xs px-2 py-0.5 gap-1 bg-background'
+                      className='font-mono font-semibold text-xs px-2.5 py-1 gap-1.5 bg-background shadow-subtle'
                       dir='ltr'
                     >
                       <span>{order.id}</span>
@@ -1263,13 +1303,13 @@ export default function WebOrdersManager({
                         title={t('copyOrderId')}
                       >
                         {isCopied ? (
-                          <Check className='w-2.5 h-2.5 text-emerald-600' />
+                          <Check className='w-3 h-3 text-emerald-600' />
                         ) : (
-                          <Copy className='w-2.5 h-2.5 text-muted-foreground' />
+                          <Copy className='w-3 h-3 text-muted-foreground' />
                         )}
                       </button>
                     </Badge>
-                    <span className='text-[10px] text-muted-foreground font-mono'>
+                    <span className='text-xs text-muted-foreground font-mono'>
                       {new Date(order.createdAt).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
@@ -1283,7 +1323,7 @@ export default function WebOrdersManager({
                 </div>
 
                 {/* Card Content Body */}
-                <CardContent className='p-3.5 space-y-3 flex-1'>
+                <CardContent className='p-4 space-y-3.5 flex-1'>
                   {/* Customer Info */}
                   <div className='flex items-start justify-between gap-2'>
                     <div>
@@ -1291,43 +1331,49 @@ export default function WebOrdersManager({
                         {order.customerName}
                       </div>
                       <div
-                        className='text-xs text-muted-foreground flex items-center gap-1 mt-0.5 font-mono'
+                        className='text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5 font-mono'
                         dir='ltr'
                       >
-                        <Phone className='w-3 h-3 text-muted-foreground' />
+                        <Phone className='w-3.5 h-3.5 text-muted-foreground shrink-0' />
                         <span>{order.customerPhone}</span>
                       </div>
                     </div>
-                    <Badge variant='secondary' className='text-[11px] font-medium shrink-0'>
+                    <Badge
+                      variant='secondary'
+                      className='text-xs font-semibold px-2 py-0.5 shrink-0 bg-primary/10 text-primary border-primary/20'
+                    >
                       {order.city}
                     </Badge>
                   </div>
 
                   {/* Delivery Address */}
-                  <div className='text-xs text-muted-foreground flex items-start gap-1.5 bg-muted/20 p-2 rounded-md border border-border/40'>
-                    <MapPin className='w-3.5 h-3.5 text-primary shrink-0 mt-0.5' />
+                  <div className='text-xs text-muted-foreground flex items-start gap-1.5 bg-muted/20 p-2.5 rounded-lg border border-border/40'>
+                    <MapPin className='w-4 h-4 text-primary shrink-0 mt-0.5' />
                     <span className='line-clamp-2'>{order.deliveryAddress}</span>
                   </div>
 
                   {/* Courier Info (if dispatched) */}
                   {order.courierName && (
-                    <div className='p-2 rounded-md bg-blue-500/5 border border-blue-500/15 text-xs flex items-center justify-between'>
-                      <div className='flex items-center gap-1.5 text-blue-700 dark:text-blue-400 font-medium'>
-                        <Truck className='w-3.5 h-3.5 shrink-0' />
+                    <div className='p-2.5 rounded-lg bg-blue-500/5 border border-blue-500/20 text-xs flex items-center justify-between'>
+                      <div className='flex items-center gap-1.5 text-blue-700 dark:text-blue-400 font-semibold'>
+                        <Truck className='w-4 h-4 shrink-0' />
                         <span>{order.courierName}</span>
                       </div>
                       {order.trackingNumber && (
-                        <div className='flex items-center gap-1 font-mono text-[10px] text-muted-foreground' dir='ltr'>
-                          <span>{order.trackingNumber}</span>
+                        <div
+                          className='flex items-center gap-1.5 font-mono text-xs text-muted-foreground'
+                          dir='ltr'
+                        >
+                          <span>#{order.trackingNumber}</span>
                           <button
                             onClick={() => handleCopyText(order.trackingNumber, 'tracking')}
-                            className='hover:text-foreground cursor-pointer'
+                            className='hover:text-foreground cursor-pointer p-0.5'
                             title={t('copyTracking')}
                           >
                             {copiedTracking === order.trackingNumber ? (
-                              <Check className='w-2.5 h-2.5 text-emerald-600' />
+                              <Check className='w-3 h-3 text-emerald-600' />
                             ) : (
-                              <Copy className='w-2.5 h-2.5' />
+                              <Copy className='w-3 h-3' />
                             )}
                           </button>
                         </div>
@@ -1337,17 +1383,17 @@ export default function WebOrdersManager({
 
                   {/* Line Items Preview */}
                   <div className='space-y-1.5 pt-1'>
-                    <div className='flex items-center justify-between text-[11px] font-semibold text-muted-foreground'>
+                    <div className='flex items-center justify-between text-xs font-semibold text-muted-foreground'>
                       <span>{t('orderedItems')}</span>
                       <button
                         onClick={() => setDetailModalOrder(order)}
-                        className='text-primary hover:underline cursor-pointer text-[10px]'
+                        className='text-primary hover:underline cursor-pointer text-xs'
                       >
                         {t('viewOrder')} ({order.items.length})
                       </button>
                     </div>
 
-                    <div className='space-y-1 bg-muted/10 p-2 rounded-lg border border-border/50 divide-y divide-border/30'>
+                    <div className='space-y-1.5 bg-muted/20 p-2.5 rounded-lg border border-border/50 divide-y divide-border/30'>
                       {order.items.slice(0, 2).map((item, idx) => {
                         const displayName =
                           language === 'ur' && item.urduName ? item.urduName : item.name
@@ -1365,13 +1411,13 @@ export default function WebOrdersManager({
                         return (
                           <div
                             key={idx}
-                            className='flex items-center justify-between gap-2 py-1 first:pt-0 last:pb-0'
+                            className='flex items-center justify-between gap-2.5 py-1.5 first:pt-0 last:pb-0'
                           >
-                            <div className='flex items-center gap-2 min-w-0'>
+                            <div className='flex items-center gap-2.5 min-w-0'>
                               {item.image && (
                                 <div
                                   onClick={() => setPreviewProduct(productForPreview)}
-                                  className='w-7 h-7 rounded border border-border/80 overflow-hidden shrink-0 cursor-zoom-in'
+                                  className='w-8 h-8 rounded-md border border-border/80 overflow-hidden shrink-0 cursor-zoom-in'
                                 >
                                   <img
                                     src={item.image}
@@ -1387,12 +1433,12 @@ export default function WebOrdersManager({
                                 <div className='text-xs font-medium text-foreground truncate'>
                                   {displayName}
                                 </div>
-                                <div className='text-[10px] text-muted-foreground font-mono'>
+                                <div className='text-[11px] text-muted-foreground font-mono'>
                                   {item.qty} × {formatCurrency(item.price, language)}
                                 </div>
                               </div>
                             </div>
-                            <span className='font-mono font-semibold text-xs text-foreground shrink-0'>
+                            <span className='font-mono font-bold text-xs text-foreground shrink-0'>
                               {formatCurrency(item.price * item.qty, language)}
                             </span>
                           </div>
@@ -1402,7 +1448,7 @@ export default function WebOrdersManager({
                       {order.items.length > 2 && (
                         <div
                           onClick={() => setDetailModalOrder(order)}
-                          className='text-center pt-1.5 text-[10px] text-primary hover:underline cursor-pointer'
+                          className='text-center pt-2 text-xs text-primary hover:underline cursor-pointer font-medium'
                         >
                           +{order.items.length - 2} more items...
                         </div>
@@ -1412,16 +1458,14 @@ export default function WebOrdersManager({
 
                   {/* Customer Notes */}
                   {order.notes && (
-                    <div className='text-[11px] text-muted-foreground italic bg-muted/30 p-2 rounded border border-border/40'>
+                    <div className='text-xs text-muted-foreground italic bg-muted/30 p-2.5 rounded-lg border border-border/40'>
                       &ldquo;{order.notes}&rdquo;
                     </div>
                   )}
 
                   {/* Total & Payment Row */}
                   <div className='pt-2 border-t border-border flex items-center justify-between'>
-                    <div>
-                      {renderPaymentBadge(order)}
-                    </div>
+                    <div>{renderPaymentBadge(order)}</div>
                     <div className='text-right'>
                       <div className='text-[10px] text-muted-foreground uppercase font-semibold'>
                         {t('grandTotal')}
@@ -1434,14 +1478,14 @@ export default function WebOrdersManager({
                 </CardContent>
 
                 {/* Card Action Footer */}
-                <CardFooter className='bg-muted/20 px-3.5 py-2.5 border-t border-border flex items-center justify-between gap-1.5'>
+                <CardFooter className='bg-muted/20 px-4 py-3 border-t border-border flex items-center justify-between gap-2'>
                   {/* Left: Communication & Details */}
                   <div className='flex items-center gap-1.5'>
                     <Button
                       onClick={() => setDetailModalOrder(order)}
                       variant='outline'
                       size='sm'
-                      className='h-8 text-xs cursor-pointer gap-1 px-2'
+                      className='h-8 text-xs cursor-pointer gap-1.5 px-2.5'
                       title={t('viewOrder')}
                     >
                       <Eye className='w-3.5 h-3.5' />
@@ -1455,7 +1499,7 @@ export default function WebOrdersManager({
                       className='h-8 w-8 p-0 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 cursor-pointer border-emerald-500/30'
                       title='WhatsApp'
                     >
-                      <MessageSquare className='w-3.5 h-3.5' />
+                      <MessageSquare className='w-4 h-4' />
                     </Button>
 
                     <Button
@@ -1465,7 +1509,7 @@ export default function WebOrdersManager({
                       className='h-8 w-8 p-0 cursor-pointer'
                       title={t('printSlip')}
                     >
-                      <Printer className='w-3.5 h-3.5' />
+                      <Printer className='w-4 h-4' />
                     </Button>
                   </div>
 
@@ -1475,7 +1519,7 @@ export default function WebOrdersManager({
                       <Button
                         onClick={() => handleOpenDispatch(order)}
                         size='sm'
-                        className='h-8 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1 px-2.5'
+                        className='h-8 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1.5 px-3'
                       >
                         <Truck className='w-3.5 h-3.5' />
                         <span>{t('markDispatched')}</span>
@@ -1486,7 +1530,7 @@ export default function WebOrdersManager({
                       <Button
                         onClick={() => handleOpenComplete(order)}
                         size='sm'
-                        className='h-8 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1 px-2.5'
+                        className='h-8 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1.5 px-3'
                       >
                         <CheckCircle2 className='w-3.5 h-3.5' />
                         <span>{t('markCompleted')}</span>
@@ -1501,7 +1545,7 @@ export default function WebOrdersManager({
                         className='h-8 w-8 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10 cursor-pointer'
                         title={t('cancelOrder')}
                       >
-                        <X className='w-3.5 h-3.5' />
+                        <X className='w-4 h-4' />
                       </Button>
                     )}
                   </div>
@@ -1514,10 +1558,10 @@ export default function WebOrdersManager({
 
       {/* ================== PAGINATION BAR ================== */}
       {filteredAndSortedOrders.length > 0 && (
-        <Card className='p-3 sm:p-4 border-border shadow-subtle bg-card/60 backdrop-blur-sm'>
+        <Card className='p-3 sm:p-4 border-border shadow-subtle bg-card/70 backdrop-blur-sm'>
           <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-xs'>
             {/* Left: Range and Count Indicator */}
-            <div className='text-muted-foreground'>
+            <div className='text-muted-foreground font-medium'>
               {language === 'ur'
                 ? `${totalItems} میں سے ${startIndex + 1} تا ${endIndex} آرڈرز`
                 : `Showing ${startIndex + 1}–${endIndex} of ${totalItems} orders`}
@@ -1534,7 +1578,7 @@ export default function WebOrdersManager({
                     setItemsPerPage(Number(e.target.value))
                     setCurrentPage(1)
                   }}
-                  className='bg-muted/40 border border-border/80 rounded px-2 py-1 text-xs text-foreground font-medium focus:outline-none cursor-pointer'
+                  className='bg-muted/40 border border-border/80 rounded px-2.5 py-1 text-xs text-foreground font-semibold focus:outline-none cursor-pointer'
                 >
                   <option value={5}>5</option>
                   <option value={10}>10</option>
@@ -1553,7 +1597,7 @@ export default function WebOrdersManager({
                   className='h-8 w-8 p-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed'
                   title='First Page'
                 >
-                  <ChevronsLeft className='w-3.5 h-3.5' />
+                  <ChevronsLeft className='w-4 h-4' />
                 </Button>
 
                 <Button
@@ -1564,13 +1608,12 @@ export default function WebOrdersManager({
                   className='h-8 w-8 p-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed'
                   title={t('previousPage')}
                 >
-                  <ChevronLeft className='w-3.5 h-3.5' />
+                  <ChevronLeft className='w-4 h-4' />
                 </Button>
 
                 {/* Page Number Pills */}
                 {Array.from({ length: totalPages }, (_, i) => i + 1)
                   .filter((pageNum) => {
-                    // Show current page, first, last, and immediate neighbors
                     return (
                       pageNum === 1 ||
                       pageNum === totalPages ||
@@ -1610,7 +1653,7 @@ export default function WebOrdersManager({
                   className='h-8 w-8 p-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed'
                   title={t('nextPage')}
                 >
-                  <ChevronRight className='w-3.5 h-3.5' />
+                  <ChevronRight className='w-4 h-4' />
                 </Button>
 
                 <Button
@@ -1621,7 +1664,7 @@ export default function WebOrdersManager({
                   className='h-8 w-8 p-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed'
                   title='Last Page'
                 >
-                  <ChevronsRight className='w-3.5 h-3.5' />
+                  <ChevronsRight className='w-4 h-4' />
                 </Button>
               </div>
             </div>
@@ -1650,10 +1693,10 @@ export default function WebOrdersManager({
         {detailModalOrder && (
           <div className='space-y-4 py-1 text-xs'>
             {/* Top Status & Meta Row */}
-            <div className='flex flex-wrap items-center justify-between gap-2 p-3 bg-muted/40 rounded-lg border border-border'>
-              <div className='flex items-center gap-2'>
+            <div className='flex flex-wrap items-center justify-between gap-2 p-3.5 bg-muted/40 rounded-lg border border-border'>
+              <div className='flex items-center gap-2.5'>
                 {renderStatusBadge(detailModalOrder.status)}
-                <Badge variant='outline' className='font-mono font-semibold' dir='ltr'>
+                <Badge variant='outline' className='font-mono font-bold text-xs' dir='ltr'>
                   {detailModalOrder.id}
                 </Badge>
                 <button
@@ -1662,9 +1705,9 @@ export default function WebOrdersManager({
                   title={t('copyOrderId')}
                 >
                   {copiedOrderId === detailModalOrder.id ? (
-                    <Check className='w-3 h-3 text-emerald-600' />
+                    <Check className='w-3.5 h-3.5 text-emerald-600' />
                   ) : (
-                    <Copy className='w-3 h-3' />
+                    <Copy className='w-3.5 h-3.5' />
                   )}
                 </button>
               </div>
@@ -1675,7 +1718,7 @@ export default function WebOrdersManager({
             {/* 2-Column Info Grid */}
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               {/* Customer & Delivery */}
-              <div className='p-3.5 rounded-lg border border-border bg-card space-y-2.5'>
+              <div className='p-4 rounded-lg border border-border bg-card space-y-3'>
                 <div className='text-xs font-semibold text-muted-foreground uppercase tracking-wider'>
                   {t('customerAndPhone')}
                 </div>
@@ -1692,12 +1735,12 @@ export default function WebOrdersManager({
                   </div>
                 </div>
 
-                <div className='pt-2 border-t border-border/60 space-y-1'>
+                <div className='pt-2.5 border-t border-border/60 space-y-1'>
                   <div className='text-[11px] font-semibold text-muted-foreground'>
                     {t('deliveryAddress')}:
                   </div>
                   <div className='text-xs text-foreground flex items-start gap-1.5'>
-                    <MapPin className='w-3.5 h-3.5 text-primary shrink-0 mt-0.5' />
+                    <MapPin className='w-4 h-4 text-primary shrink-0 mt-0.5' />
                     <span>
                       {detailModalOrder.deliveryAddress},{' '}
                       <strong className='text-foreground'>{detailModalOrder.city}</strong>
@@ -1706,11 +1749,11 @@ export default function WebOrdersManager({
                 </div>
 
                 {detailModalOrder.notes && (
-                  <div className='pt-2 border-t border-border/60'>
+                  <div className='pt-2.5 border-t border-border/60'>
                     <div className='text-[11px] font-semibold text-muted-foreground mb-1'>
                       {t('customerNotes')}:
                     </div>
-                    <div className='text-[11px] text-muted-foreground italic bg-muted/30 p-2 rounded border border-border/50'>
+                    <div className='text-xs text-muted-foreground italic bg-muted/30 p-2.5 rounded-lg border border-border/50'>
                       &ldquo;{detailModalOrder.notes}&rdquo;
                     </div>
                   </div>
@@ -1718,21 +1761,21 @@ export default function WebOrdersManager({
               </div>
 
               {/* Logistics & Fulfillment */}
-              <div className='p-3.5 rounded-lg border border-border bg-card space-y-2.5'>
+              <div className='p-4 rounded-lg border border-border bg-card space-y-3'>
                 <div className='text-xs font-semibold text-muted-foreground uppercase tracking-wider'>
                   {t('assignedCourier')}
                 </div>
 
                 {detailModalOrder.courierName ? (
-                  <div className='space-y-2'>
-                    <div className='p-2.5 rounded bg-blue-500/10 border border-blue-500/20 text-xs'>
-                      <div className='font-bold text-blue-700 dark:text-blue-400 flex items-center gap-1.5'>
+                  <div className='space-y-2.5'>
+                    <div className='p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs'>
+                      <div className='font-bold text-blue-700 dark:text-blue-400 flex items-center gap-2'>
                         <Truck className='w-4 h-4' />
                         <span>{detailModalOrder.courierName}</span>
                       </div>
                       {detailModalOrder.trackingNumber && (
                         <div
-                          className='mt-1 text-[11px] font-mono text-foreground flex items-center gap-1.5'
+                          className='mt-1.5 text-xs font-mono text-foreground flex items-center gap-2'
                           dir='ltr'
                         >
                           <span className='text-muted-foreground'>{t('trackingNumber')}:</span>
@@ -1745,9 +1788,9 @@ export default function WebOrdersManager({
                             title={t('copyTracking')}
                           >
                             {copiedTracking === detailModalOrder.trackingNumber ? (
-                              <Check className='w-3 h-3 text-emerald-600' />
+                              <Check className='w-3.5 h-3.5 text-emerald-600' />
                             ) : (
-                              <Copy className='w-3 h-3' />
+                              <Copy className='w-3.5 h-3.5' />
                             )}
                           </button>
                         </div>
@@ -1755,21 +1798,21 @@ export default function WebOrdersManager({
                     </div>
 
                     {detailModalOrder.dispatchedAt && (
-                      <div className='text-[11px] text-muted-foreground font-mono'>
+                      <div className='text-xs text-muted-foreground font-mono'>
                         Dispatched:{' '}
                         {new Date(detailModalOrder.dispatchedAt).toLocaleString()}
                       </div>
                     )}
                     {detailModalOrder.completedAt && (
-                      <div className='text-[11px] text-emerald-600 dark:text-emerald-400 font-mono'>
+                      <div className='text-xs text-emerald-600 dark:text-emerald-400 font-mono'>
                         Completed:{' '}
                         {new Date(detailModalOrder.completedAt).toLocaleString()}
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className='p-3 rounded bg-muted/40 border border-dashed border-border text-center text-muted-foreground'>
-                    <Truck className='w-5 h-5 mx-auto opacity-40 mb-1' />
+                  <div className='p-4 rounded-lg bg-muted/40 border border-dashed border-border text-center text-muted-foreground'>
+                    <Truck className='w-6 h-6 mx-auto opacity-40 mb-1.5' />
                     <span>Awaiting courier assignment upon dispatch</span>
                   </div>
                 )}
@@ -1784,7 +1827,7 @@ export default function WebOrdersManager({
               <div className='border border-border rounded-lg overflow-hidden'>
                 <Table>
                   <TableHeader>
-                    <TableRow className='bg-muted/40 text-[11px]'>
+                    <TableRow className='bg-muted/40 text-[11px] font-semibold'>
                       <TableHead>{t('productAndMedia')}</TableHead>
                       <TableHead className='text-center'>{t('quantity')}</TableHead>
                       <TableHead className='text-right'>{t('unitPrice')}</TableHead>
@@ -1809,11 +1852,11 @@ export default function WebOrdersManager({
 
                       return (
                         <TableRow key={idx} className='hover:bg-muted/20'>
-                          <TableCell className='py-2.5 flex items-center gap-2.5'>
+                          <TableCell className='py-3 flex items-center gap-3'>
                             {item.image && (
                               <div
                                 onClick={() => setPreviewProduct(productForPreview)}
-                                className='w-10 h-10 rounded-md overflow-hidden border border-border shrink-0 cursor-zoom-in bg-muted/40 hover:ring-2 hover:ring-primary/60 transition-all'
+                                className='w-11 h-11 rounded-md overflow-hidden border border-border shrink-0 cursor-zoom-in bg-muted/40 hover:ring-2 hover:ring-primary/60 transition-all'
                                 title='Click to enlarge'
                               >
                                 <img
@@ -1828,18 +1871,18 @@ export default function WebOrdersManager({
                             )}
                             <div>
                               <div className='font-medium text-foreground'>{displayName}</div>
-                              <span className='font-mono text-[10px] text-muted-foreground' dir='ltr'>
+                              <span className='font-mono text-xs text-muted-foreground' dir='ltr'>
                                 {item.sku}
                               </span>
                             </div>
                           </TableCell>
-                          <TableCell className='py-2.5 text-center font-mono font-bold'>
+                          <TableCell className='py-3 text-center font-mono font-bold text-sm'>
                             {item.qty}
                           </TableCell>
-                          <TableCell className='py-2.5 text-right font-mono text-muted-foreground'>
+                          <TableCell className='py-3 text-right font-mono text-muted-foreground text-xs'>
                             {formatCurrency(item.price, language)}
                           </TableCell>
-                          <TableCell className='py-2.5 text-right font-mono font-bold text-foreground'>
+                          <TableCell className='py-3 text-right font-mono font-bold text-foreground text-sm'>
                             {formatCurrency(item.price * item.qty, language)}
                           </TableCell>
                         </TableRow>
@@ -1851,16 +1894,16 @@ export default function WebOrdersManager({
             </div>
 
             {/* Calculations Breakdown */}
-            <div className='p-3 bg-muted/30 rounded-lg border border-border flex flex-col items-end gap-1 font-mono text-xs'>
-              <div className='flex justify-between w-48 text-muted-foreground'>
+            <div className='p-3.5 bg-muted/30 rounded-lg border border-border flex flex-col items-end gap-1.5 font-mono text-xs'>
+              <div className='flex justify-between w-56 text-muted-foreground'>
                 <span>{t('subtotal')}:</span>
                 <span>{formatCurrency(detailModalOrder.subtotal, language)}</span>
               </div>
-              <div className='flex justify-between w-48 text-muted-foreground'>
+              <div className='flex justify-between w-56 text-muted-foreground'>
                 <span>{t('deliveryFee')}:</span>
                 <span>{formatCurrency(detailModalOrder.deliveryFee, language)}</span>
               </div>
-              <div className='flex justify-between w-48 pt-1.5 border-t border-border font-bold text-sm text-foreground'>
+              <div className='flex justify-between w-56 pt-2 border-t border-border font-bold text-sm text-foreground'>
                 <span>{t('grandTotal')}:</span>
                 <span className='text-primary'>
                   {formatCurrency(detailModalOrder.total, language)}
@@ -1869,7 +1912,7 @@ export default function WebOrdersManager({
             </div>
 
             {/* Modal Bottom Actions */}
-            <div className='flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-border'>
+            <div className='flex flex-wrap items-center justify-between gap-2.5 pt-3 border-t border-border'>
               <div className='flex items-center gap-2'>
                 <Button
                   onClick={() => setWhatsAppModalData(detailModalOrder)}
@@ -1877,7 +1920,7 @@ export default function WebOrdersManager({
                   size='sm'
                   className='h-8 text-xs cursor-pointer gap-1.5 border-emerald-500/30 text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20'
                 >
-                  <MessageSquare className='w-3.5 h-3.5 text-emerald-600' />
+                  <MessageSquare className='w-4 h-4 text-emerald-600' />
                   <span>WhatsApp</span>
                 </Button>
 
@@ -1887,7 +1930,7 @@ export default function WebOrdersManager({
                   size='sm'
                   className='h-8 text-xs cursor-pointer gap-1.5'
                 >
-                  <Printer className='w-3.5 h-3.5' />
+                  <Printer className='w-4 h-4' />
                   <span>{t('printSlip')}</span>
                 </Button>
               </div>
@@ -1903,7 +1946,7 @@ export default function WebOrdersManager({
                     size='sm'
                     className='h-8 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer gap-1.5'
                   >
-                    <Truck className='w-3.5 h-3.5' />
+                    <Truck className='w-4 h-4' />
                     <span>{t('markDispatched')}</span>
                   </Button>
                 )}
@@ -1918,7 +1961,7 @@ export default function WebOrdersManager({
                     size='sm'
                     className='h-8 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer gap-1.5'
                   >
-                    <CheckCircle2 className='w-3.5 h-3.5' />
+                    <CheckCircle2 className='w-4 h-4' />
                     <span>{t('markCompleted')}</span>
                   </Button>
                 )}
@@ -1933,7 +1976,7 @@ export default function WebOrdersManager({
                     size='sm'
                     className='h-8 text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/10 cursor-pointer'
                   >
-                    <X className='w-3.5 h-3.5 mr-1' />
+                    <X className='w-4 h-4 mr-1' />
                     <span>{t('cancelOrder')}</span>
                   </Button>
                 )}
@@ -1961,29 +2004,29 @@ export default function WebOrdersManager({
       >
         {dispatchOrderTarget && (
           <div className='space-y-4 py-2'>
-            <div className='p-3 bg-muted/40 rounded-lg text-xs space-y-1.5 border border-border'>
+            <div className='p-3.5 bg-muted/40 rounded-lg text-xs space-y-2 border border-border'>
               <div className='flex justify-between'>
-                <span className='font-semibold text-foreground'>
+                <span className='font-bold text-foreground text-sm'>
                   {dispatchOrderTarget.customerName}
                 </span>
-                <span className='font-mono font-semibold text-primary' dir='ltr'>
+                <span className='font-mono font-bold text-primary text-sm' dir='ltr'>
                   {dispatchOrderTarget.id}
                 </span>
               </div>
               <div className='text-muted-foreground'>
                 {dispatchOrderTarget.deliveryAddress}, {dispatchOrderTarget.city}
               </div>
-              <div className='text-muted-foreground flex justify-between pt-1 border-t border-border/60'>
+              <div className='text-muted-foreground flex justify-between pt-2 border-t border-border/60'>
                 <span>
                   {dispatchOrderTarget.items.length} {t('itemsCount')}
                 </span>
-                <span className='font-bold text-foreground font-mono'>
+                <span className='font-bold text-foreground font-mono text-sm'>
                   {formatCurrency(dispatchOrderTarget.total, language)}
                 </span>
               </div>
             </div>
 
-            <div className='p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2'>
+            <div className='p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2.5'>
               <Boxes className='w-4 h-4 shrink-0 mt-0.5 text-amber-600' />
               <span>
                 {language === 'ur'
@@ -1993,8 +2036,8 @@ export default function WebOrdersManager({
             </div>
 
             <div className='space-y-3 text-xs'>
-              <div className='space-y-1'>
-                <label className='font-medium text-foreground'>{t('courierRider')}</label>
+              <div className='space-y-1.5'>
+                <label className='font-semibold text-foreground'>{t('courierRider')}</label>
                 <select
                   value={courierName}
                   onChange={(e) => setCourierName(e.target.value)}
@@ -2009,8 +2052,8 @@ export default function WebOrdersManager({
                 </select>
               </div>
 
-              <div className='space-y-1'>
-                <label className='font-medium text-foreground'>{t('trackingNumber')}</label>
+              <div className='space-y-1.5'>
+                <label className='font-semibold text-foreground'>{t('trackingNumber')}</label>
                 <Input
                   type='text'
                   placeholder='e.g., TCS-928174 or Rider Phone'
@@ -2020,8 +2063,8 @@ export default function WebOrdersManager({
                 />
               </div>
 
-              <div className='space-y-1'>
-                <label className='font-medium text-foreground'>
+              <div className='space-y-1.5'>
+                <label className='font-semibold text-foreground'>
                   {language === 'ur' ? 'ڈسپیچ نوٹس (اختیاری)' : 'Dispatch Notes (Optional)'}
                 </label>
                 <Input
@@ -2046,7 +2089,7 @@ export default function WebOrdersManager({
                 onClick={handleConfirmDispatch}
                 className='h-9 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer'
               >
-                <Truck className='w-3.5 h-3.5 mr-1.5' />
+                <Truck className='w-4 h-4 mr-1.5' />
                 <span>
                   {language === 'ur'
                     ? 'ڈسپیچ کریں اور اسٹاک منہا کریں'
@@ -2068,8 +2111,8 @@ export default function WebOrdersManager({
       >
         {completeOrderTarget && (
           <div className='space-y-4 py-2 text-xs'>
-            <div className='p-3 bg-muted/40 rounded-lg space-y-1.5 border border-border'>
-              <div className='font-semibold text-foreground'>
+            <div className='p-3.5 bg-muted/40 rounded-lg space-y-2 border border-border'>
+              <div className='font-bold text-foreground text-sm'>
                 {completeOrderTarget.customerName}
               </div>
               <div className='text-muted-foreground'>
@@ -2077,16 +2120,16 @@ export default function WebOrdersManager({
               </div>
               <div className='text-muted-foreground'>
                 Total to Collect/Settle:{' '}
-                <strong className='font-mono text-primary'>
+                <strong className='font-mono text-primary text-sm'>
                   {formatCurrency(completeOrderTarget.total, language)}
                 </strong>
               </div>
-              <div className='text-[11px] text-muted-foreground'>
+              <div className='text-xs text-muted-foreground'>
                 Payment Method: <span className='font-semibold'>{completeOrderTarget.paymentMethod}</span>
               </div>
             </div>
 
-            <p className='text-muted-foreground'>
+            <p className='text-muted-foreground text-xs leading-relaxed'>
               {language === 'ur'
                 ? 'کیا آپ تصدیق کرتے ہیں کہ کسٹمر کو سامان مل چکا ہے اور رقم وصول ہو گئی ہے؟ یہ آرڈر آپ کے کل مالیاتی محصولات اور کسٹمر لیجر میں شامل کر دیا جائے گا۔'
                 : 'Confirm customer has received the parcel and full payment has been collected. This transaction will be logged to your Financial Analytics and Customer Ledger.'}
@@ -2104,7 +2147,7 @@ export default function WebOrdersManager({
                 onClick={handleConfirmComplete}
                 className='h-9 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer'
               >
-                <CheckCircle2 className='w-3.5 h-3.5 mr-1.5' />
+                <CheckCircle2 className='w-4 h-4 mr-1.5' />
                 <span>
                   {language === 'ur' ? 'مکمل اور رقم وصول کریں' : 'Confirm Delivered & Settle'}
                 </span>
